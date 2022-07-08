@@ -14,6 +14,9 @@
 		98BB5E812877D69500401F86 /* overloading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BB5E802877D69500401F86 /* overloading.cpp */; };
 		98BB5E842877DBA600401F86 /* defaultValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BB5E832877DBA600401F86 /* defaultValue.cpp */; };
 		98BB5E872877E16E00401F86 /* inlineFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BB5E862877E16E00401F86 /* inlineFunc.cpp */; };
+		98BB5E8A2877EF3300401F86 /* nameSapce.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BB5E892877EF3300401F86 /* nameSapce.cpp */; };
+		98BB5E8C2877F43000401F86 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BB5E8B2877F43000401F86 /* main.cpp */; };
+		98BB5E8F2877F4A400401F86 /* Funcs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 98BB5E8D2877F4A400401F86 /* Funcs.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +40,10 @@
 		98BB5E802877D69500401F86 /* overloading.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = overloading.cpp; sourceTree = "<group>"; };
 		98BB5E832877DBA600401F86 /* defaultValue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = defaultValue.cpp; sourceTree = "<group>"; };
 		98BB5E862877E16E00401F86 /* inlineFunc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = inlineFunc.cpp; sourceTree = "<group>"; };
+		98BB5E892877EF3300401F86 /* nameSapce.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nameSapce.cpp; sourceTree = "<group>"; };
+		98BB5E8B2877F43000401F86 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		98BB5E8D2877F4A400401F86 /* Funcs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Funcs.cpp; sourceTree = "<group>"; };
+		98BB5E8E2877F4A400401F86 /* Funcs.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Funcs.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +76,7 @@
 		983AB9972876E47000D40246 /* practice_1 */ = {
 			isa = PBXGroup;
 			children = (
+				98BB5E882877EF2400401F86 /* 1-5 */,
 				98BB5E852877E15E00401F86 /* 1-4 */,
 				98BB5E822877DB9300401F86 /* 1-3 */,
 				98BB5E7F2877D68200401F86 /* 1-2 */,
@@ -110,6 +118,17 @@
 				98BB5E862877E16E00401F86 /* inlineFunc.cpp */,
 			);
 			path = "1-4";
+			sourceTree = "<group>";
+		};
+		98BB5E882877EF2400401F86 /* 1-5 */ = {
+			isa = PBXGroup;
+			children = (
+				98BB5E892877EF3300401F86 /* nameSapce.cpp */,
+				98BB5E8B2877F43000401F86 /* main.cpp */,
+				98BB5E8D2877F4A400401F86 /* Funcs.cpp */,
+				98BB5E8E2877F4A400401F86 /* Funcs.hpp */,
+			);
+			path = "1-5";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,7 +190,10 @@
 			files = (
 				98BB5E872877E16E00401F86 /* inlineFunc.cpp in Sources */,
 				983AB9992876E47000D40246 /* main.cpp in Sources */,
+				98BB5E8C2877F43000401F86 /* main.cpp in Sources */,
 				98BB5E842877DBA600401F86 /* defaultValue.cpp in Sources */,
+				98BB5E8A2877EF3300401F86 /* nameSapce.cpp in Sources */,
+				98BB5E8F2877F4A400401F86 /* Funcs.cpp in Sources */,
 				983AB9A52876ED6C00D40246 /* Chapter1_Problem.cpp in Sources */,
 				98BB5E812877D69500401F86 /* overloading.cpp in Sources */,
 				983AB9A32876EBE600D40246 /* StringIO.cpp in Sources */,
