@@ -1,20 +1,21 @@
 #include <iostream>
 using namespace std;
 
+// 2->3
+// 이니셜라이저 사용
+
 class FruitSeller
 {
     
 private:
-    int APPLE_PRICE;
+    const int APPLE_PRICE;
     int numOfApples;
     int myMoney;
     
 public:
-    FruitSeller(int price, int num, int money) //생성자
+    FruitSeller(int price, int num, int money):APPLE_PRICE(price), numOfApples(num), myMoney(money) //생성자
     {
-        APPLE_PRICE = price;
-        numOfApples = num;
-        myMoney = money;
+        // 이니셜라이저 이용으로 인해 본체는 비어졌음
     }
     
     int SaleApples(int money) // 사과팔기
@@ -38,10 +39,9 @@ private:
     int myMoney;
     int numOfApples;
 public:
-    FruitBuyer(int money)
+    FruitBuyer(int money):myMoney(money), numOfApples(0)
     {
-        myMoney = money;
-        numOfApples = 0;
+        // 이니셜라이저 이용으로 인해 본체는 비어졌음
     }
     void BuyApples(FruitSeller &seller, int money){
         numOfApples+=seller.SaleApples(money);
