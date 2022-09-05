@@ -1,26 +1,67 @@
 #include <iostream>
 using namespace std;
 
-//int RefRetFuncOne(int &ref){
-//    ref++;
-//    return ref;
-//}
+class FruitSeller
+{
+private:
+    int APPLE_PRICE;
+    int numOfApples;
+    int myMoney;
+public:
+    
+    FruitSeller(int price, int num, int money) //생성자
+    {
+        APPLE_PRICE = price;
+        numOfApples = num;
+        myMoney = money;
+    }
+    
+    int SaleApples(int money) // 사과팔기
+    {
+        int num = money/APPLE_PRICE;
+        numOfApples-=num;
+        myMoney+=money;
+        return num;
+    }
+    
+    void ShowSalesResult() const //판매 결과보기
+    {
+        cout<<"남은 사과 : "<<numOfApples<<endl;
+        cout<<"판매 수익 : "<<myMoney<<endl<<endl;
+    }
+};
 
-//int &RefRetFuncOne(int &ref){
-//    ref++;
-//    return ref;
-//}
-//
-//int main(void){
-//    int val1 = 10, val2 = 20;
-//    SwapByRef2(val1, val2);
-//    cout<<"VAL1 : "<<val1<<endl;
-//    cout<<"VAL2 : "<<val2<<endl;
-//    return 0;
-//}
+class FruitBuyer
+{
+private:
+    int myMoney;
+    int numOfApples;
+public:
+    FruitBuyer(int money)
+    {
+        myMoney = money;
+        numOfApples = 0;
+    }
+    void BuyApples(FruitSeller &seller, int money){
+        numOfApples+=seller.SaleApples(money);
+        myMoney -= money;
+    }
+    void ShowBuyResult() const
+    {
+        cout<<"현재 잔액 : "<<myMoney<<endl;
+        cout<<"사과 개수 : "<<numOfApples<<endl;
+    }
+};
 
-//const int num = 20;
-//int &ref = num;
-//ref+=10;
-//cout<<num<<endl;
-
+int main(void){
+    FruitSeller seller(1000,20,0);
+    FruitBuyer buyer(5000);
+    buyer.BuyApples(seller, 2000);
+    
+    cout<<"과일 판매자의 현황"<<endl;
+    seller.ShowSalesResult();
+    
+    cout<<"과일 구매자의 현황"<<endl;
+    buyer.ShowBuyResult();
+    return 0;
+}
