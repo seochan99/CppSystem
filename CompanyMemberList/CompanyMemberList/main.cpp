@@ -78,7 +78,5 @@ int main(void)
     manSENIOR.ShowNameCardInfo();
     manAssist.ShowNameCardInfo();
     
-    
-    
     return 0;
 }
