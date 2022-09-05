@@ -1,3 +1,5 @@
+// 1과 달라진점
+// 모든 클래스에 생성자 정의하기
 #include <iostream>
 using namespace std;
 
@@ -10,11 +12,10 @@ private:
     
 public:
     
-    //초기화
-    void Init(int x,int y)
+    //생성자
+    Point(int x, int y):xpos(x),ypos(y)
     {
-        xpos = x;
-        ypos = y;
+        //empty
     }
     
     // 정보출력
@@ -31,12 +32,9 @@ private:
     Point center; // 원의 중심
     
 public:
-    // 원 초기화
-    void Init(int x, int y, int r)
-    {
-        rad = r;
-        center.Init(x, y);
-    }
+    // 생성자
+    Circle(int x, int y,int r):rad(r),center(x,y)
+    {}
     
     // 원 정보 출력
     void ShowCircleInfo() const
@@ -52,10 +50,8 @@ private:
     Circle inCircle;
     Circle outCircle;
 public:
-    void Init(int inX, int inY, int inR, int outX, int outY, int outR)
-    {
-        inCircle.Init(inX, inY, inR);
-        outCircle.Init(outX, outY, outR);
+    // 생성자
+    Ring(int inX, int inY, int inR, int outX, int outY, int outR):inCircle(inX,inY,inR), outCircle(outX,outY,outR){
     }
     void showRingInfo() const
     {
@@ -69,8 +65,7 @@ public:
 
 int main(void)
 {
-    Ring ring;
-    ring.Init(1, 1, 4, 2, 2, 9);
+    Ring ring(1, 1, 4, 2, 2, 9);
     ring.showRingInfo();
     return 0;
 }
