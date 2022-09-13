@@ -5,13 +5,6 @@ using namespace std;
 int main(void)
 {
     
-    // 배열 입력받기
-//    cout<<"데이터 출력 : ";
-//    for(int i=0;i<10;i++)
-//    {
-//        cin>>arr[i];
-//    }
-    
     // 배열 선언
     int arr[10]={1,56,15,99,65,33,21,47,72,5};
     int temp=0;
