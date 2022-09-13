@@ -9,8 +9,6 @@ class Number {
 public:
   // 값을 입력받기 위해 num을 public으로 선언함
   int num;
-  //정렬 기준은 ' 점수가 작은 순서'
-
     
     //두 객체를 비교하려는것이지 상태를 변화시킬려는 것이아니기에 const 필수
   bool operator<(const Number &arr) const{
@@ -19,23 +17,22 @@ public:
         return true;
       
       return false;
-    //점수가 작으면 먼저 출력
-    //내 점수와 다른 학생을 비교
   }
 };
 
 int main(void) {
   // 객체 생성
   Number arr[10];
+    arr[0].num = 1; arr[1].num = 56; arr[2].num = 15; arr[3].num = 99; arr[4].num = 65;
+    arr[5].num = 33; arr[6].num = 21; arr[7].num = 47; arr[8].num = 72; arr[9].num = 5;
 
-  // 객체 입력받기
+  // 객체 num 데이터 출력
   cout << "데이터 출력 : ";
   for (int i = 0; i < 10; i++) {
-    //입력받기
-    cin >> arr[i].num;
+      cout<<arr[i].num<<" ";
   }
-  // 배열 오름차순 : 앞의 값이 뒤의 값보다 크면 교환하여 앞에 값을 뒤로 이동
-    
+    cout<<endl;
+  // 오름차순 : 앞의 값이 뒤의 값보다 크면 교환하여 앞에 값을 뒤로 이동
   // sort를 활용한 오름차순
   sort(arr, arr + 10);
 
