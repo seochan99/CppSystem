@@ -34,6 +34,7 @@ int main(void)
     Car car;
     cout<<"현재 속도는"<<car.speed<<", 기어는"<<car.gear<<", 현재 자동차 색상은 "<<car.color<<", 현재 자동차 브랜드는 "<<car.brand<<endl;
     car.speedUp();
+    
     cout<<"속도 speedUp() 호출 : "<<car.speed<<endl;
     
     car.speedDown();
