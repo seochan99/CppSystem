@@ -18,13 +18,14 @@ int gcd(int a, int b) {
 
 int main()
 {
-    int num1, num2;
+    int num1, num2,greatest;
     
     cout<<"두 수를 입력하세요 :";
     cin >> num1 >> num2;
     
-    cout <<"두 수의 최대공약수 : "<< gcd(num1, num2)<< endl;
+    greatest=gcd(num1, num2);
+    cout <<"두 수의 최대공약수 : "<<greatest<< endl;
     
     // 최소 공배수 공식 LCD(a,b) = (a*b)/GCD(a,b) 사용
-    cout << "두 수의 최소공배수 : " << (num1*num2)/gcd(num1, num2) << endl;
+    cout << "두 수의 최소공배수 : " << (num1*num2)/greatest << endl;
 }
