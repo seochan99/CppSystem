@@ -17,7 +17,8 @@ public:
 
 // 이니셜라이저
 YoutubeSize::YoutubeSize() : width(800), height(600){}
-YoutubeSize::YoutubeSize(int w, int h){
+YoutubeSize::YoutubeSize(int w, int h):YoutubeSize()
+{
     ResizeWindow(w, h);
 }
 
@@ -41,10 +42,12 @@ void YoutubeSize::ResizeWindow(int w, int h)
 int main(void)
 {
     
-    //
+    // 객체 생성
     YoutubeSize mainWindow;
     
+    // 리사이즈
     mainWindow.ResizeWindow(854, 480);
+    //출력
     cout<<mainWindow.GetWidth()<<" X "<<mainWindow.GetHeight()<<endl;
     
     mainWindow.ResizeWindow(1920, 1080);
@@ -52,27 +55,6 @@ int main(void)
     
     mainWindow.ResizeWindow(3840, 2160);
     cout<<mainWindow.GetWidth()<<" X "<<mainWindow.GetHeight()<<endl;
-    
-//    // 인수 2개를 전달할때의 선언
-//    YoutubeSize youtubeSize(1000,800);
-//
-//    cout<<"인수 2개 전달받은 youtubeSize width : "<<youtubeSize.GetWidth()<<endl;
-//    cout<<"인수 2개 전달받은 youtubeSize height : "<<youtubeSize.GetHeight()<<endl;
-//
-//
-//    // resize
-//    youtubeSize.ResizeWindow(1400, 600);
-//
-//    cout<<"Resize된 인수 2개 전달받은 youtubeSize width :"<<youtubeSize.GetWidth()<<endl;
-//    cout<<"Resize된 인수 2개 전달받은 youtubeSize height : "<<youtubeSize.GetHeight()<<endl;
-//
-//    // 인수를 전달안할때의 선언
-//    YoutubeSize youtubeSize2;
-//
-//    cout<<"인수 전달받지 않은 youtubeSize width : "<<youtubeSize2.GetWidth()<<endl;
-//    cout<<"인수 전달받지 않은 youtubeSize height : "<<youtubeSize2.GetHeight()<<endl;
-//
-    
     
     return 0;
 }
