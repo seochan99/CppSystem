@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// Student 객체 생성
 class Student{
 private:
     string name;

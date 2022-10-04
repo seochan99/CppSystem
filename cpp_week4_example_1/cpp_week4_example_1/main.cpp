@@ -1,29 +1,27 @@
-#include <iostream>
-#include <string>
+#include "Time.hpp"
 
-using namespace std;
+int main() {
+    
+    // 변수설정
+  int hour, min, sec;
+    
+    // 객체 생성
+  Time t1;
+    
+  cout << "시간을 입력해주세요 : " << endl;
 
-class Fraction{
-private:
-    int m_numerator;
-    int m_denominator;
-public:
-    Fraction(){
-        m_numerator = 0;
-        m_denominator = 1;
-    }
-    int getNumerator() {return m_numerator;}
-    int getDenominator() {return m_denominator;}
-    double getValue() { return (m_numerator)/ m_denominator; }
-    
-    ~Fraction(){cout<<"기록삭제"<<endl;}
-};
+  cout << "몇 시?";
+  cin >> hour;
+  t1.SetHour(hour);
 
-int main(int argc, const char * argv[]) {
-    Fraction frac;
-    cout<< frac.getNumerator()<<frac.getDenominator()<<'\n';
-    cout<<frac.getValue()<<endl;
-    
-    
-    return 0;
+  cout << "몇 분?";
+  cin >> min;
+  t1.SetMin(min);
+
+  cout << "몇 초?";
+  cin >> sec;
+  t1.SetSec(sec);
+
+  t1.GetTime();
+  cout << "시간을 초로 변환 = " << t1.TimeToSec() << endl;
 }
