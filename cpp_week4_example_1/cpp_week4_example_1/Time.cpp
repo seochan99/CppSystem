@@ -14,27 +14,18 @@ void Time::GetTime() {
   string minString;
   string secString;
 
-  // 시 10이하인지 체크
-  if (hour < 10)
-    hourString = "0" + to_string(hour);
-  else
-    hourString = to_string(hour);
+    // 시 10이하인지 체크
+    hourString = hour < 10 ? "0" + to_string(hour) : to_string(hour);
 
-  // 분 10이하인지 체크
-  if (min < 10)
-    minString = "0" + to_string(min);
-  else
-    minString = to_string(min);
+    // 분 10이하인지 체크
+    minString = min < 10 ? "0" + to_string(min) : to_string(min);
 
-  // 초 10이하인지 체크
-  if (sec < 10)
-    secString = "0" + to_string(sec);
-  else
-    secString = to_string(sec);
+    // 초 10이하인지 체크
+    secString = sec < 10 ? "0" + to_string(sec) : to_string(sec);
 
-  // 출력
-  cout << "입력한 시간 = " << hourString << ":" << minString << ":" << secString
-       << endl;
+    // 출력
+    cout << "입력한 시간 = " << hourString << ":" << minString << ":" << secString
+         << endl;
 }
 
 // 시간을 초로
