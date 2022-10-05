@@ -2,49 +2,34 @@
 
 using namespace std;
 
-class TestResult{
+class Box{
 private:
-    int myS;
-    int myN;
-    string myName;
+    double length;
+    double breadth;
+    double height;
 public:
-    TestResult():myS(0),myN(0),myName("none"){}
-    TestResult(int s, int n, string name){
-        myS = s;
-        myN = n;
-        myName = name;
+    Box(double l = 2.0, double b = 2.0, double h = 2.0){
+        cout<<"Constructor Called. "<<endl;
+        length = l;
+        breadth = b;
+        height = h;
     }
-    void printAll();
+    double Volume(){
+        return length*breadth*height;
+    }
 };
 
-
-
-void TestResult::printAll(){
-    cout << myN << '\n';
-     cout << myName << '\n';
-     cout << myS << '\n';
-}
-
-
 int main(void){
+    Box Box1(3.3,1.2,1.5);
+    Box Box2(2.3,5.2,7.5);
     
-    int num,score;
-    string name;
-    TestResult *student[3];
+    Box *b1;
+    Box *b2;
     
-    for(int i=0;i<3;i++)
-    {
-        cout << "학번 : ";
-        cin >> num;
-        cout << "이름 : ";
-        cin >> name;
-        cout << "점수 : ";
-         cin >> score;
-        // 동적할당
-        student[i] = new TestResult(score,num,name);
-    }
+    b1 = &Box1;
+    b2 = &Box2;
     
-    student[0]->printAll();
-    student[1]->printAll();
-    student[2]->printAll();
+    cout<<"VOlume Of Box1"<<b1->Volume()<<endl;
+    cout<<"VOlume Of Box2"<<b2->Volume()<<endl;
+
 }
