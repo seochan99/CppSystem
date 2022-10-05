@@ -2,34 +2,34 @@
 
 using namespace std;
 
-class Box{
-private:
-    double length;
-    double breadth;
-    double height;
-public:
-    Box(double l = 2.0, double b = 2.0, double h = 2.0){
-        cout<<"Constructor Called. "<<endl;
-        length = l;
-        breadth = b;
-        height = h;
-    }
-    double Volume(){
-        return length*breadth*height;
-    }
-};
 
 int main(void){
-    Box Box1(3.3,1.2,1.5);
-    Box Box2(2.3,5.2,7.5);
+    int num;
     
-    Box *b1;
-    Box *b2;
+    // 정수입력받기 
+    cout<<"정수를 얼마나 입력 받을까요? : ";
+    cin>>num;
+
+    //배열 동적할당
+    int *arr = new int[num];
     
-    b1 = &Box1;
-    b2 = &Box2;
+    // 입력 받기
+    for(int i=0;i<num;i++){
+        cout<<"정수 입력 : ";
+        cin>>arr[i];
+    }
     
-    cout<<"VOlume Of Box1"<<b1->Volume()<<endl;
-    cout<<"VOlume Of Box2"<<b2->Volume()<<endl;
+    cout<<"정수 출력 : ";
+    //반복문으로 배열 출력하기
+    for(int i=0;i<num;i++){
+        // 마지막 , 안찍히게
+        if(i==num-1)
+            cout<<arr[i]<<endl;
+        else
+            cout<<arr[i]<<", ";
+    }
+    //해제
+    delete [] arr;
+    return 0;
 
 }
