@@ -20,6 +20,7 @@ public:
         cout<<"반지름 : "<<radius<<" @("<<x<<", "<<y<<")"<<endl;
     }
     
+    ~Circle(){};
 };
 
 int main(void)
@@ -37,7 +38,7 @@ int main(void)
         c[i].print();
     }
     
-    // 할당해제 
+    // 할당해제
     delete [] c;
     
     return 0;
