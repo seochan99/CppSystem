@@ -29,6 +29,7 @@ public:
 int main(void){
     Books *book[3];
 
+    // 책 동적할당 해주며 정보 입력받기
     for(int i=0;i<3;i++){
         cout<<"책 "<<i+1<<"번 제목 및 가격 입력"<<endl;
         // 책 동적할당
@@ -38,6 +39,7 @@ int main(void){
     
     cout<<endl;
     
+    // 책 정보 출력
     for(int i=0;i<3;i++){
         cout<<"책 "<<i+1<<endl;
         book[i]->GetBook();
