@@ -39,8 +39,5 @@ int main(void)
         // 출력함수
         swap(latter,len);
     }
-    
-    
-    
     return 0;
 }
