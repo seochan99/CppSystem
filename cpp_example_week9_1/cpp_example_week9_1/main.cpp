@@ -2,42 +2,25 @@
 
 using namespace std;
 
-class Person{
-private:
-    int id;
-    double weight;
-    string name;
-public:
-    void show(){
-        cout<<id<<" "<<weight<<" "<<name<<endl;
+int GetMax(int a, int b){
+    cout<<"int GetMax(int a, int b)"<<endl;
+    if(a>b){
+        return a;
     }
-    Person();
-    Person(int id, string name);
-    Person(int id, string name, double weight);
-};
-
-Person::Person(){
-    this->id = 1;
-    this->weight = 10.1;
-    this->name = "chanzzz";
+    return b;
 }
 
-Person::Person(int id, string name){
-    this->id = id;
-    this->weight = 20.5;
-    this->name = name;
+int GetMax(char a, char b){
+    cout <<"char GetMax(char a, char b)"<<endl;
+    if(a>b){
+        return a;
+    }
+    return b;
 }
 
-Person::Person(int id, string name, double weight){
-    this->id = id;
-    this->weight = weight;
-    this->name = name;
-}
-
-int main(void){
-    Person seo,chan(2,"chan"),seochan(3,"seochan",60.4);
-    seo.show();
-    chan.show();
-    seochan.show();
+int main(){
+    cout<<GetMax(4, 10)<<endl;
+    cout<<GetMax('a', 'h')<<endl;
+    
     return 0;
 }
