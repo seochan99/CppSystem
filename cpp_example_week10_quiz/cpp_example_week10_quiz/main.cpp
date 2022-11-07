@@ -8,8 +8,8 @@ private:
     int gear;
     string color;
     int id;
-    static int cnt;
 public:
+    static int cnt;
     Car(int speed=0,int gear=1,string color = "White")
     {
         this->speed = speed;
