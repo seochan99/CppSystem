@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 class Car{
 private:
     string name; // 차량 이름

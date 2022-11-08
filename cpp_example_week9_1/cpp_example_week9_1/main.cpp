@@ -8,31 +8,28 @@ private:
     double rad; // 반지름
     double height; // 높이
     double width; // 너비
-    double result;
     double line; // 선 한길이
 public:
-    // 메뉴 출력
-    void static menu();
-    
     // 일반 생성자
-    Measure(){
-    }
+    Measure(){}
     
     // 생성자 원
     Measure(double rad){
         this->rad = rad; //반지름주기
     }
     
-    // 생성자 직사각형, 삼각형
+    // 생성자 직사각형, 삼각형 생성자
     Measure(double height, double width){
         this->height = height;
         this->width = width;
     }
     
+    // 높이 받는 메서드
     void SetHeight(double height){
         this->height = height;
     }
     
+    // 정사각형 -> 한변의 길이 받는 메서드
     void SetLine(double line){
         this->line = line;
     }
@@ -56,7 +53,7 @@ public:
         cout<<"정사각형 면적은 : "<<line*line<<endl;
     }
     
-    // 원뿔
+    // 원뿔 부피
     void getOnebbul(){
         cout<<"원뿔의 부피는 : "<<height*(rad*rad*PI)/3<<endl;
     }
@@ -75,9 +72,9 @@ public:
 
 int main(){
     int choice=0;
-    double radius;
-    double width,height;
-    double line;
+    double radius; // 원 반지름
+    double width,height; // 너비, 높이
+    double line; // 한 변 길이
     
     cout<<"면적 및 부피 계산기"<<endl<<endl;
     
@@ -96,9 +93,10 @@ int main(){
     cout<<endl;
     
     // 입력에 따라서
-    // switch에서 변수 생성시 {} 감사야함
+    // switch 내에서 변수 생성시 {} 감사야함
     switch (choice) {
-        case 1: {//원의 면적
+        case 1: {
+            //원의 면적
             
             // 반지름 입력받기
             cout<<"원의 반지름 입력 : ";
@@ -139,7 +137,6 @@ int main(){
             
             // 할당해제
             delete t;
-            
             break;
         }
         case 4:
@@ -151,7 +148,9 @@ int main(){
             
             // 정사각형 동적생성
             Measure *et = new Measure();
+            // 한변의 길이 설정
             et->SetLine(line);
+            // 정사각형 넓이 출력
             et->getEquilateralRectangleArea();
             // 할당해제
             delete et;
@@ -163,10 +162,12 @@ int main(){
             cin>>radius>>height;
             cout<<endl;
             
-            // 원 동적생성
+            // 원뿔 동적생성, 반지름으로 객체 생성
             Measure *op = new Measure(radius);
-            op->SetHeight(height);
             
+            // 원뿔 높이 넣기
+            op->SetHeight(height);
+            // 원뿔 부피출력
             op->getOnebbul();
             // 할당해제
             delete op;
@@ -181,12 +182,13 @@ int main(){
                 
                 // 원 동적생성
                 Measure *cv = new Measure(radius);
+                // 구의 부피 가져오기
                 cv->GetCircleV();
                 // 할당해제
                 delete cv;
                 break;
         }
-        case 7: //실린더 부피 : 밑면의 널빙 * 높이
+        case 7: // 실린더 부피 : 밑면의 널빙 * 높이
         {
             cout<<"실린더의 반지름, 높이 입력 : ";
             cin>>radius>>height;
@@ -194,14 +196,17 @@ int main(){
             
             // 원 동적생성
             Measure *sil = new Measure(radius);
+            // 실린더 높이 넣기
             sil->SetHeight(height);
-            
+            // 실린더 부피 가져오기
             sil->GetSil();
             // 할당해제
             delete sil;
             break;
         }
+        default: // 그외의 번호를 입력했을때
+            cout<<"1~7을 입력하지 않았으므로 프로그램을 종료합니다."<<endl;
+            
     }
-    
     return 0;
 }
