@@ -2,50 +2,30 @@
 
 using namespace std;
 
-class Test{
-    int num1;
-    static int a;
+class F_test1{
+    int a;
+    friend class F_test2; // friend keyword
+};
+
+class F_test2{
 public:
-    Test(){
-        this->num1 = 10;
-    }
-    static void P(){
-        cout<<a<<endl;
+    void set(F_test1& F,int x){ //F_test1 referece
+        F.a =x;
     }
     
-    void printVal(){
-        cout<<"일반 맴버 변수 : "<<num1<<endl;
-        cout<<"static member var : "<<a<<endl;
-        cout<<"------------------------"<<endl;
-    }
-    
-    void setStatic(int x){
-        this->a = x;
-    }
-    void setNum(int x){
-        this->num1 = x;
+    // F_test2는 F_test1 친구이므로 F_test1의 private member에 대한 접근이 가능하다.
+    void printInfo(F_test1& F){
+        cout<<"private - F_test1 a vlaue : "<<F.a<<endl;
     }
 };
 
-
-// static member initialize
-int Test::a = 0;
-
 int main(void)
 {
-    Test::P();
+    F_test1 f1;
+    F_test2 f2;
     
-    Test t1;
-    Test t2;
-    
-    t1.printVal();
-    t2.printVal();
-    
-    t1.setStatic(100);
-    t2.setNum(22);
-    
-    t1.printVal();
-    t2.printVal();
+    f2.set(f1, 777);
+    f2.printInfo(f1); 
     return 0;
 }
 
