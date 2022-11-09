@@ -9,6 +9,10 @@ public:
     Test(){
         this->num1 = 10;
     }
+    static void P(){
+        cout<<a<<endl;
+    }
+    
     void printVal(){
         cout<<"일반 맴버 변수 : "<<num1<<endl;
         cout<<"static member var : "<<a<<endl;
@@ -29,6 +33,8 @@ int Test::a = 0;
 
 int main(void)
 {
+    Test::P();
+    
     Test t1;
     Test t2;
     
