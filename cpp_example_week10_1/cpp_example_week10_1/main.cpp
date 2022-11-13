@@ -36,7 +36,7 @@ int main(void)
     Cal c;
     // Number 클래스 n 인스턴스 생성
     Number n;
-    
+    cout<<"656과 789 사이에서 7로 나눌 수 있는 숫자"<<endl<<endl;
     // c Method calNum 불러오기
     c.calNum(n);
     
