@@ -10,6 +10,7 @@ class Num{
 
 class Pyramid{
 public:
+
     // 숫자 입력받는 method
     void getNum(Num& n){
         cout<<"글자수를 입력하세요(26이하의 숫자) : ";
