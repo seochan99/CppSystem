@@ -86,8 +86,16 @@ public:
     void Deactivate(){
         this->login = false;
     }
-    
+    // 랭크가져오기
+    int getRank(){
+        return this->rank;
+    }
+    // 포인트 가져오기
+    int getPoint(){
+        return this->point;
+    }
 };
+
 
 
 
@@ -112,7 +120,6 @@ int beforeLogin();
 string AfterLoginMainMenu();
 // 시작함수
 void Start();
-
 // 회원가입 함수
 void SignUp();
 // 로그인 기능
@@ -120,7 +127,14 @@ void LogIn();
 // 로그아웃기능
 void Logout();
 
+// Mypage
+void Mypage();
+
+// Mypage UI그리기
+string MypageUI(vector<Member>::iterator iter);
+
 int main(int argc, const char * argv[]) {
+    
     Start();
     
     return 0;
@@ -130,8 +144,9 @@ int main(int argc, const char * argv[]) {
 void LogIn(){
     string id;
     string password;
+    
     bool flag=true;
-        
+    
         // 로그인 진행
         cout<<"🔑 ID를 입력해주세요 : ";
         cin>>id;
@@ -165,7 +180,6 @@ void LogIn(){
             cout<<"❗️다시 로그인을 진행해주시길 바랍니다."<<endl;
             beforeLogin();
         }
-
     }
 
 // 로그아웃
@@ -290,7 +304,7 @@ void SignUp(){
             }
         }
     // 로그인 완료
-    cout<<"🌿 Chan's Delivery 로그인 완료 🌿"<<endl;
+    cout<<"🌿 Chan's Delivery 로그인 완료 🌿"<<endl<<endl;
     
     }
 // 작동 함수
@@ -345,9 +359,10 @@ void Start()
             {
                 MenuChoice = AfterLoginMainMenu();
                 // 마이페이지 이동
-                if(MenuChoice.compare("마이페이지")==0)
+                if(MenuChoice.compare("mypage")==0)
                 {
-                    
+                    Mypage();
+                    break;
                 }else if(MenuChoice.compare("치킨")==0)
                 {
                     // 치킨 식당 리스트
@@ -370,7 +385,7 @@ void Start()
                 }
                 else{
                     cout<<"---아래의 명령만을 인식합니다---"<<endl;
-                    cout<<"| - 마이페이지              |"<<endl;
+                    cout<<"| -  mypage              |"<<endl;
                     cout<<"| -  치킨                 |"<<endl;
                     cout<<"| -  피자                 |"<<endl;
                     cout<<"| -  햄버거                |"<<endl;
@@ -378,8 +393,6 @@ void Start()
                     cout<<"| -  exit                |"<<endl;
                     cout<<" ------------------------"<<endl;
                     cout<<"해당하는 명령을 입력해주세요"<<endl;
-                    
-                    
                 }
             }
             
@@ -425,3 +438,35 @@ string AfterLoginMainMenu(){
 }
 
 
+
+void Mypage(){
+    for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
+            // password가 일치하면!
+            if(iter->getActivate())
+            {
+                // 해당 계정 mypage UI그리기
+                MypageUI(iter);
+                break;
+            }
+        }
+}
+
+
+string MypageUI(vector<Member>::iterator iter){
+    string choice;
+    // 로그인 된 계정 찾기
+    cout<<" ----------------------------"<<endl;
+    cout<<"         👤 MYPAGE 👤        "<<endl;
+    cout<<" ----------------------------"<<endl;
+    cout<<"  rank : "<<iter->getRank()<<endl;
+    cout<<" ----------------------------"<<endl;
+    cout<<"  point : "<<iter->getPoint()<<endl;
+    cout<<" ----------------------------"<<endl;
+    cout<<"                             "<<endl;;
+    cout<<"    ⚠️ delete account ⚠️     "<<endl;;
+    cout<<"                       home  "<<endl;;
+    cout<<" ----------------------------"<<endl;
+    cout<<"명령어 입력 : ";
+    cin>>choice;
+    return choice;
+}
