@@ -19,17 +19,12 @@ private:
     int point = 0; // 포인트, 0부터 시작
     string key; // 비밀번호 변경 및 탈퇴시 인증키
     bool login = false; // 해당 계정 로그인 여부 체크
-    int idx;
 public:
-    static int cnt;
     // 회원 생성자 호출 시 id, password 가진상태로 시작
     Member(string id, string password, string key){
         this->id = id;
         this->password = password;
         this->key = key;
-        this->idx = cnt++; // idx저장
-        
-        // 계정 삭제 시 idx값 재정렬 필요함
         
     }
     // 임시 암호키 확인
@@ -103,8 +98,6 @@ public:
     }
 };
 
-// static cnt 0으로 시작
-int Member::cnt = 0;
 
 
 // 음식 클래스
@@ -374,15 +367,12 @@ void Start()
                 {
                     Mypage();
                     break;
-                }else if(MenuChoice.compare("치킨")==0)
+                }else if(MenuChoice.compare("chicken")==0)
                 {
                     // 치킨 식당 리스트
-                }else if(MenuChoice.compare("피자")==0)
+                }else if(MenuChoice.compare("pizza")==0)
                 {
                     // 피자 식당 리스트
-                }else if(MenuChoice.compare("햄버거")==0)
-                {
-                    // 햄버거 식당 리스트
                 }else if(MenuChoice.compare("logout")==0)
                 {
                     // 로그아웃진행
@@ -397,9 +387,8 @@ void Start()
                 else{
                     cout<<"--❗️아래의 명령만을 인식합니다❗️--"<<endl;
                     cout<<"| -  mypage                |"<<endl;
-                    cout<<"| -  치킨                   |"<<endl;
-                    cout<<"| -  피자                   |"<<endl;
-                    cout<<"| -  햄버거                  |"<<endl;
+                    cout<<"| -  chicken               |"<<endl;
+                    cout<<"| -  pizza                 |"<<endl;
                     cout<<"| -  logout                |"<<endl;
                     cout<<"| -  exit                  |"<<endl;
                     cout<<" --------------------------"<<endl;
@@ -438,7 +427,7 @@ string AfterLoginMainMenu(){
     cout<<" ----------------------------"<<endl;
     cout<<"|       🧑‍🍳식당 카테고리🧑‍🍳       |"<<endl;
     cout<<" ----------------------------"<<endl;
-    cout<<"|  🍗 Chicken  |  🍕 Pizza  |"<<endl;;
+    cout<<"|  🍗 chicken  |  🍕 pizza  |"<<endl;;
     cout<<" ----------------------------"<<endl;
     cout<<"|                            |"<<endl;;
     cout<<"|          Ver 1.5           |"<<endl;;
@@ -449,8 +438,24 @@ string AfterLoginMainMenu(){
     return choice;
 }
 
-void deleteAccount(){
+void deleteAccount(string id){
     // 계정삭제
+    
+    // 인덱스 변수
+    int idx=0;
+    // iter로 빙글 돌기
+    for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter)
+    {
+        if(id.compare(iter->getId()) == 0)
+        {
+            break;
+        }else{
+            idx++;
+        }
+    }
+    
+    // idx번째 원소 삭제
+    members.erase(members.begin());
     
     // 로그인 해제
     flagLogin = false;
@@ -475,9 +480,22 @@ void Mypage(){
                         }//계정 삭제
                         else if(choice.compare("delete") == 0){
                             // 계정삭제 진행
-                            deleteAccount();
-                            // 로그인 전 홈화면으로
-                            Start();
+                            // 키체크 성공 시
+                            if(iter->keyCheck())
+                            {
+                                cout<<"✅ 계정 "<<iter->getId()<<"이 삭제 완료되었습니다."<<endl;
+                                deleteAccount(iter->getId());
+                                // 로그인 전 홈화면으로
+                                Start();
+                                break;
+                            }
+                            // 키체크 실패 시
+                            else{
+                                // 다시 mypage로
+                                continue;
+                            }
+                            
+                            
                             break;
                         }else if(choice.compare("change") == 0){
                             // 페스워드 변경
@@ -517,7 +535,7 @@ string MypageUI(vector<Member>::iterator iter){
     cout<<"                             "<<endl;;
     cout<<"   🔒 [change] password 🔒  "<<endl;;
     cout<<"   ⚠️ [delete] account ⚠️    "<<endl;;
-    cout<<"                       home  "<<endl;;
+    cout<<"                       [home] "<<endl;;
     cout<<" ----------------------------"<<endl;
     cout<<"명령어 입력 ▶️ ";
     cin>>choice;
