@@ -18,26 +18,31 @@ private:
     int rank = 1; // 등급, 1부터 시작
     int point = 0; // 포인트, 0부터 시작
     string key; // 비밀번호 변경 및 탈퇴시 인증키
-    bool login=false; // 해당 계정 로그인 여부 체크
+    bool login = false; // 해당 계정 로그인 여부 체크
+    int idx;
 public:
-    
+    static int cnt;
     // 회원 생성자 호출 시 id, password 가진상태로 시작
     Member(string id, string password, string key){
         this->id = id;
         this->password = password;
         this->key = key;
+        this->idx = cnt++; // idx저장
+        
+        // 계정 삭제 시 idx값 재정렬 필요함
+        
     }
     // 임시 암호키 확인
     bool keyCheck(){
         // 임시키 입력
         string tempKey;
-        cout<<"회원 가입 시 입력하였던 보안키 네글자를 입력하시오."<<endl;
+        cout<<"❗️회원 가입 시 입력하였던 보안키를 입력하시오."<<endl;
         cin>>tempKey;
         
         // 임시키와 인스턴스가 가지고 있는 키와 동일하다면 true반환
         if(tempKey.compare(this->key) == 0)
         {
-            cout<<"인증되었습니다"<<endl;
+            cout<<"✅ 인증되었습니다"<<endl;
             return true;
         }
         
@@ -52,15 +57,15 @@ public:
         if(keyCheck()){
             // 비밀번호 처음, 재입력이 같을때까지 무한 반복
             while (flag) {
-                cout<<"변경할 비밀번호를 입력해주세요."<<endl;
+                cout<<"🔑 변경할 비밀번호를 입력해주세요."<<endl;
                 cin>>changePassword1;
-                cout<<"한번 더 입력해주세요."<<endl;
+                cout<<"🔑 한번 더 입력해주세요."<<endl;
                 cin>>changePassword2;
                 if(changePassword1.compare(changePassword2)==0)
                 {
                     flag = false;
                     this->password = changePassword1;
-                    cout<<"비밀번호 변경이 완료되었습니다😄"<<endl;
+                    cout<<"✅ 비밀번호 변경이 완료되었습니다"<<endl;
                 }else{
                     cout<<"❗️두 비밀번호가 일치하지 않습니다. 다시입력해주시길 바랍니다.❗️"<<endl;
                 }
@@ -96,7 +101,8 @@ public:
     }
 };
 
-
+// static cnt 0으로 시작
+int Member::cnt = 0;
 
 
 // 음식 클래스
@@ -129,6 +135,9 @@ void Logout();
 
 // Mypage
 void Mypage();
+
+//계정삭제
+void deleteAccount();
 
 // Mypage UI그리기
 string MypageUI(vector<Member>::iterator iter);
@@ -198,6 +207,8 @@ void Logout(){
             }
         }
     }
+
+
 
 // 회원가입 구현
 void SignUp(){
@@ -437,15 +448,35 @@ string AfterLoginMainMenu(){
     return choice;
 }
 
-
+void deleteAccount(){
+    // 계정삭제
+    
+    // 로그인 해제
+    flagLogin = false;
+}
 
 void Mypage(){
+    string choice;
     for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
             // password가 일치하면!
             if(iter->getActivate())
             {
                 // 해당 계정 mypage UI그리기
-                MypageUI(iter);
+                choice = MypageUI(iter);
+                // 홈화면으로 가기
+                if(choice.compare("home")){
+                    // 홈화면으로
+                    Start();
+                }//계정 삭제
+                else if(choice.compare("delete account")){
+                    // 계정삭제 진행
+                    deleteAccount();
+                    // 로그인 전 홈화면으로
+                    Start();
+                    
+                }else{
+                    
+                }
                 break;
             }
         }
@@ -458,11 +489,14 @@ string MypageUI(vector<Member>::iterator iter){
     cout<<" ----------------------------"<<endl;
     cout<<"         👤 MYPAGE 👤        "<<endl;
     cout<<" ----------------------------"<<endl;
-    cout<<"  rank : "<<iter->getRank()<<endl;
+    cout<<" 🔑 접속된 ID : "<<iter->getId()<<endl;
     cout<<" ----------------------------"<<endl;
-    cout<<"  point : "<<iter->getPoint()<<endl;
+    cout<<" 👑 rank : "<<iter->getRank()<<endl;
+    cout<<" ----------------------------"<<endl;
+    cout<<" 💰 point : "<<iter->getPoint()<<endl;
     cout<<" ----------------------------"<<endl;
     cout<<"                             "<<endl;;
+    cout<<"    🔒 change password 🔒    "<<endl;;
     cout<<"    ⚠️ delete account ⚠️     "<<endl;;
     cout<<"                       home  "<<endl;;
     cout<<" ----------------------------"<<endl;
