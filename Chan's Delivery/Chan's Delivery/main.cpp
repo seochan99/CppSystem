@@ -36,6 +36,7 @@ public:
     bool keyCheck(){
         // 임시키 입력
         string tempKey;
+
         cout<<"❗️회원 가입 시 입력하였던 보안키를 입력하시오."<<endl;
         cin>>tempKey;
         
@@ -45,7 +46,7 @@ public:
             cout<<"✅ 인증되었습니다"<<endl;
             return true;
         }
-        
+        cout<<"⚠️ 보안키가 틀렸습니다. 뒤로 돌아갑니다."<<endl;
         return false;
     }
     // 비밀번호 변경
@@ -54,6 +55,7 @@ public:
         string changePassword2;
         bool flag = true; // 비밀번호 처음, 재입력이 같은지 확인
         // keyCheck가 트루라면 비번 변경 시행
+        
         if(keyCheck()){
             // 비밀번호 처음, 재입력이 같을때까지 무한 반복
             while (flag) {
@@ -208,8 +210,6 @@ void Logout(){
         }
     }
 
-
-
 // 회원가입 구현
 void SignUp(){
     string id;
@@ -346,7 +346,7 @@ void Start()
                 break;
               default:
                 // 0~3사이의 숫자 입력안할시 아래 문구 출력
-                printf("0~2사이의 숫자를 입력해주세요.\n");
+                printf("❗️ 0~2사이의 숫자를 입력해주세요.\n");
                 break;
               }
                 // 로그인 되어있다면 탈출
@@ -395,14 +395,14 @@ void Start()
                     continue;
                 }
                 else{
-                    cout<<"---아래의 명령만을 인식합니다---"<<endl;
-                    cout<<"| -  mypage              |"<<endl;
-                    cout<<"| -  치킨                 |"<<endl;
-                    cout<<"| -  피자                 |"<<endl;
-                    cout<<"| -  햄버거                |"<<endl;
-                    cout<<"| -  logout              |"<<endl;
-                    cout<<"| -  exit                |"<<endl;
-                    cout<<" ------------------------"<<endl;
+                    cout<<"--❗️아래의 명령만을 인식합니다❗️--"<<endl;
+                    cout<<"| -  mypage                |"<<endl;
+                    cout<<"| -  치킨                   |"<<endl;
+                    cout<<"| -  피자                   |"<<endl;
+                    cout<<"| -  햄버거                  |"<<endl;
+                    cout<<"| -  logout                |"<<endl;
+                    cout<<"| -  exit                  |"<<endl;
+                    cout<<" --------------------------"<<endl;
                     cout<<"해당하는 명령을 입력해주세요"<<endl;
                 }
             }
@@ -420,6 +420,7 @@ int beforeLogin(){
     cout<<"Chan's Delivery에 오신것을 환영합니다.😆"<<endl;
     cout<<"💡 배달 서비스를 이용하실려면 로그인 또는 회원가입을 진행해주세요."<<endl;
     cout<<"| 1. 회원가입 | 2. 로그인 | 0. 프로그램 종료 |"<<endl;
+    cout<<"명령어 입력 ▶️ ";
     cin>>choice;
     return choice;
 }
@@ -431,19 +432,19 @@ string AfterLoginMainMenu(){
     cout<<" ----------------------------"<<endl;
     cout<<"|    📦 Chan's Delivery 📦   |"<<endl;
     cout<<" ----------------------------"<<endl;
-    cout<<"| mypage | logout |          |"<<endl;
+    cout<<"| [mypage] | [logout] |      |"<<endl;
     cout<<" ----------------------------"<<endl;
     cout<<"| 현재 서비스 지역 : "<<location<<"   |"<<endl;
     cout<<" ----------------------------"<<endl;
     cout<<"|       🧑‍🍳식당 카테고리🧑‍🍳       |"<<endl;
     cout<<" ----------------------------"<<endl;
-    cout<<"| 🍗 치킨 | 🍕 피자 | 🍔 햄버거 |"<<endl;;
+    cout<<"|  🍗 Chicken  |  🍕 Pizza  |"<<endl;;
     cout<<" ----------------------------"<<endl;
     cout<<"|                            |"<<endl;;
-    cout<<"|           Ver 1.4          |"<<endl;;
-    cout<<"|                       exit |"<<endl;;
+    cout<<"|          Ver 1.5           |"<<endl;;
+    cout<<"|                     [exit] |"<<endl;;
     cout<<" ----------------------------"<<endl;
-    cout<<"명령어 입력 : ";
+    cout<<"명령어 입력 ▶️ ";
     cin>>choice;
     return choice;
 }
@@ -457,29 +458,47 @@ void deleteAccount(){
 
 void Mypage(){
     string choice;
-    for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
-            // password가 일치하면!
-            if(iter->getActivate())
-            {
-                // 해당 계정 mypage UI그리기
-                choice = MypageUI(iter);
-                // 홈화면으로 가기
-                if(choice.compare("home")){
-                    // 홈화면으로
-                    Start();
-                }//계정 삭제
-                else if(choice.compare("delete account")){
-                    // 계정삭제 진행
-                    deleteAccount();
-                    // 로그인 전 홈화면으로
-                    Start();
-                    
-                }else{
-                    
+ 
+        for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
+                // password가 일치하면!
+                if(iter->getActivate())
+                {
+                    while(true)
+                    {
+                        // 해당 계정 mypage UI그리기
+                        choice = MypageUI(iter);
+                        // 홈화면으로 가기
+                        if(choice.compare("home") == 0){
+                            // 홈화면으로
+                            Start();
+                            break;
+                        }//계정 삭제
+                        else if(choice.compare("delete") == 0){
+                            // 계정삭제 진행
+                            deleteAccount();
+                            // 로그인 전 홈화면으로
+                            Start();
+                            break;
+                        }else if(choice.compare("change") == 0){
+                            // 페스워드 변경
+                            iter->ChangePassword();
+                            // 다시 mypage로
+                            continue;
+                        }else{
+                            cout<<"--❗️아래의 명령만을 인식합니다❗️--"<<endl;
+                            cout<<"| -  mypage               |"<<endl;
+                            cout<<"| -  change               |"<<endl;
+                            cout<<"| -  delete               |"<<endl;
+                            cout<<"| -  home                 |"<<endl;
+                            cout<<" -------------------------"<<endl;
+                            cout<<"해당하는 명령을 입력해주세요"<<endl;
+                            continue;
+                        }
+                    }
+          
                 }
-                break;
             }
-        }
+   
 }
 
 
@@ -496,11 +515,11 @@ string MypageUI(vector<Member>::iterator iter){
     cout<<" 💰 point : "<<iter->getPoint()<<endl;
     cout<<" ----------------------------"<<endl;
     cout<<"                             "<<endl;;
-    cout<<"    🔒 change password 🔒    "<<endl;;
-    cout<<"    ⚠️ delete account ⚠️     "<<endl;;
+    cout<<"   🔒 [change] password 🔒  "<<endl;;
+    cout<<"   ⚠️ [delete] account ⚠️    "<<endl;;
     cout<<"                       home  "<<endl;;
     cout<<" ----------------------------"<<endl;
-    cout<<"명령어 입력 : ";
+    cout<<"명령어 입력 ▶️ ";
     cin>>choice;
     return choice;
 }
