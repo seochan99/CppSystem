@@ -1,5 +1,7 @@
 #include <iostream>
-#include <list>
+#include <algorithm> // find
+#include <vector> // vector
+#include "account.hpp"
 
 using namespace std;
 #define MEMBERNUM 100;
@@ -7,10 +9,6 @@ using namespace std;
 // 로그인 여부 깃발 전역으로 저장
 bool flagLogin=false;
 
-// id 중복 검사용 서버
-//class Server{
-//    bool IsOverlapped(const string &id);
-//};
 
 // 회원 클래스
 class Member{
@@ -20,13 +18,16 @@ private:
     int rank = 1; // 등급, 1부터 시작
     int point = 0; // 포인트, 0부터 시작
     string key; // 비밀번호 변경 및 탈퇴시 인증키
+    bool login=false; // 해당 계정 로그인 여부 체크
 public:
     
     // 회원 생성자 호출 시 id, password 가진상태로 시작
-    Member(string id, string password){
+    Member(string id, string password, string key){
         this->id = id;
         this->password = password;
+        this->key = key;
     }
+    // 임시 암호키 확인
     bool keyCheck(){
         // 임시키 입력
         string tempKey;
@@ -39,6 +40,7 @@ public:
             cout<<"인증되었습니다"<<endl;
             return true;
         }
+        
         return false;
     }
     // 비밀번호 변경
@@ -63,13 +65,31 @@ public:
                     cout<<"❗️두 비밀번호가 일치하지 않습니다. 다시입력해주시길 바랍니다.❗️"<<endl;
                 }
             }
-   
         }
     }
-    
     // ID,비밀번호 설정
     
+    // id 반환
+    string getId(){
+        return this->id;
+    }
+    string getPassword(){
+        return this->password;
+    }
+    bool getActivate(){
+        return this->login;
+    }
+    
+    void Activate(){
+        this->login = true;
+    }
+    void Deactivate(){
+        this->login = false;
+    }
+    
 };
+
+
 
 // 음식 클래스
 class Food{
@@ -81,6 +101,12 @@ class Restaurant{
     
 };
 
+// 클래스별 벡터 생성
+vector<Member> members;
+vector<Food> foods;
+vector<Restaurant> restaurants;
+
+
 // 로그인 이전 메인 메뉴 뜨게하기
 int beforeLogin();
 string AfterLoginMainMenu();
@@ -89,43 +115,184 @@ void Start();
 
 // 회원가입 함수
 void SignUp();
-void LogIn();
-
 // 로그인 기능
+void LogIn();
+// 로그아웃기능
+void Logout();
 
 int main(int argc, const char * argv[]) {
     Start();
     
     return 0;
 }
+
+// 로그인 구현
 void LogIn(){
     string id;
     string password;
-    cout<<"ID를 입력해주세요 : ";
-    cin>>id;
-    cout<<"PASSWORD를 입력해주세요 : ";
-    cin>>password;
-    
-    // 해당 객체 찾기
-    
-    //로그인 완료
-    flagLogin = true;
-    
-}
+    bool flag=true;
+        
+        // 로그인 진행
+        cout<<"🔑 ID를 입력해주세요 : ";
+        cin>>id;
+        cout<<"🔒 PASSWORD를 입력해주세요 : ";
+        cin>>password;
+        
+        // 해당 id찾기
+        for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
+            
+            // id가 있다면!
+            if (iter->getId().compare(id) == 0)
+            {
+                
+                // password가 일치하면!
+                if(iter->getPassword().compare(password) ==0)
+                {
+                    // 로그인 완료!!
+                    iter->Activate(); // 활성화시키기
+                    flagLogin = true;
+                    // 로그인 완료시 false!
+                    flag = false;
+                    break;
+                }
+                
+            }
+        }
+        // flag가 여전히 true면 해당 아이디 못찾음
+        if(flag==true)
+        {
+            cout<<"❗️해당하는 계정이 존재하지않습니다."<<endl;
+            cout<<"❗️다시 로그인을 진행해주시길 바랍니다."<<endl;
+            beforeLogin();
+        }
+
+    }
+
+// 로그아웃
+void Logout(){
+    for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
+            // password가 일치하면!
+            if(iter->getActivate())
+            {
+                // 비활성화 시키기
+                // 해당 계정 비활성화
+                iter->Deactivate();
+                
+                //로그인 전역변수 false로
+                flagLogin = false;
+                break;
+            }
+        }
+    }
+
+// 회원가입 구현
 void SignUp(){
     string id;
-    string password;
-    cout<<"ID를 입력해주세요 : ";
-    cin>>id;
+    string password1; // 패스워드
+    string password2; // 확인용 패스워드
+    string key1; // 인증키
+    string key2; // 인증키 확인용
+    bool flag = true;
+    // 객체 생성자 호출
     
+    //아이디 중복 확인 알고리즘
+    while(flag)
+    {
+        cout<<"🔒 ID를 입력해주세요 : ";
+        cin>>id;
+        
+        // 반복체크
+        // 사이즈가 0이면 아직 생성된 회원 없음
+        // id중복 체크 필요없음
+        if(members.size() == 0)
+        {
+            break;
+        }
+        else{
+            // 동일아이디이 있는지 vector돌면서 check
+            for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
+                // 동알한 아이디가 있다면
+                if (iter->getId().compare(id) == 0)
+                {
+                    cout<<"❗️이미 중복된 id가 존재합니다. 다시 입력해주세요."<<endl;
+                    break;
+                }else{
+                    // 만약 중복되는 id가 없다면 flag = false로
+                    flag = false;
+                }
+            }
+        }
+        
+        
+    }
+    // 패스워드 확인 알고리즘
+    while(true)
+    {
+        // password1 입력
+        cout<<"🔑 PASSWORD를 입력해주세요 : ";
+        cin>>password1;
+        
+        // password2 입력
+        cout<<"🔑 (확인용)PASSWORD를 다시 입력해주세요 : ";
+        cin>>password2;
+        
+            if(password1.compare(password2)==0)
+            {
+                cout<<"✅ 비밀번호가 설정됐습니다."<<endl;
+                break;
+            }else{
+                cout<<"❗️두 비밀번호가 일치하지 않습니다. 다시입력해주시길 바랍니다.❗️"<<endl;
+                continue;
+            }
+    }
+ 
+        // 인증키 확인 알고리즘
+        while(true)
+        {
+            // password1 입력
+            cout<<"💡비밀번호 변경 혹은 회원삭제를 위한 인증키를 입력해주세요💡"<<endl;
+            cout<<"💡인증키는 6자리이하 영어,특수문자,숫자중 설정가능합니다.💡"<<endl;
+            cout<<"🔐 인증키 입력 : ";
+            cin>>key1;
+            
+            // password2 입력
+            cout<<"🔐 (확인용)인증키를 다시 입력해주세요 : ";
+            cin>>key2;
+            // 길이부터 체크
+                if(key1.length()>6)
+                {
+                    cout<<"❗️인증키는 6자리이하로 입력하셔야 합니다."<<endl;
+                    continue;
+                }else if(key1.compare(key2)==0)
+                {
+                    cout<<"✅ 인증키가 설정됐습니다."<<endl;
+                    break;
+                    
+                }
+                else{
+                    cout<<"❗️두 인증키가 일치하지 않습니다. 다시입력해주시길 바랍니다.❗️"<<endl;
+                    continue;
+                }
+        }
     // 객체 생성
+    members.push_back(Member(id,password1,key1));
+    // 중복확인, it 포인터 생성
     
-    // 중복확인
-    
+    // 해당 객체 signup activate로 바꾸기
+    for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
+            // 해당하는 id찾으면
+            if(iter->getId().compare(id) == 0)
+            {
+                // 해당계정활성화시키고 로그인 전역변수 true로 바꾸기
+                iter->Activate();
+                flagLogin = true;
+                break;
+            }
+        }
     // 로그인 완료
-    flagLogin = true;
-
-}
+    cout<<"🌿 Chan's Delivery 로그인 완료 🌿"<<endl;
+    
+    }
 // 작동 함수
 void Start()
 {
@@ -146,7 +313,7 @@ void Start()
               {
               case 1:
                 // 회원가입
-                      SignUp();
+                SignUp();
                 break;
               case 2:
                 // 로그인
@@ -157,6 +324,7 @@ void Start()
                 printf("0~2사이의 숫자를 입력해주세요.\n");
                 break;
               }
+                // 로그인 되어있다면 탈출
                 if(flagLogin==true)
                     break;
             }
@@ -192,7 +360,7 @@ void Start()
                 }else if(MenuChoice.compare("logout")==0)
                 {
                     // 로그아웃진행
-                    flagLogin = false;
+                    Logout();
                     break;
                 }else if(MenuChoice.compare("exit")==0)
                 {
@@ -225,7 +393,8 @@ void Start()
 // 미로그인시 뜨는 화면
 int beforeLogin(){
     int choice;
-    cout<<"배달 서비스를 이용하실려면 로그인 또는 회원가입을 진행해주세요."<<endl;
+    cout<<"Chan's Delivery에 오신것을 환영합니다.😆"<<endl;
+    cout<<"💡 배달 서비스를 이용하실려면 로그인 또는 회원가입을 진행해주세요."<<endl;
     cout<<"| 1. 회원가입 | 2. 로그인 | 0. 프로그램 종료 |"<<endl;
     cin>>choice;
     return choice;
