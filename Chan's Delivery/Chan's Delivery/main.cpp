@@ -25,25 +25,47 @@ public:
         this->id = id;
         this->password = password;
         this->key = key;
-        
     }
     // 임시 암호키 확인
     bool keyCheck(){
         // 임시키 입력
         string tempKey;
+        string tempPass;
 
-        cout<<"❗️회원 가입 시 입력하였던 보안키를 입력하시오."<<endl;
-        cin>>tempKey;
+        cout<<"❗️회원 가입 시 입력하였던 비밀번호를 입력하시오 : ";
+        cin>>tempPass;
         
         // 임시키와 인스턴스가 가지고 있는 키와 동일하다면 true반환
-        if(tempKey.compare(this->key) == 0)
+        if(tempPass.compare(this->password) == 0)
         {
-            cout<<"✅ 인증되었습니다"<<endl;
-            return true;
+            cout<<"✅ 비밀번호가 인증되었습니다"<<endl;
+            
+            cout<<"❗️회원 가입 시 입력하였던 보안키를 입력하시오 : ";
+            cin>>tempKey;
+            // 임시키와 인스턴스가 가지고 있는 키와 동일하다면 true반환
+            if(tempKey.compare(this->key) == 0)
+            {
+                cout<<"✅ 인증되었습니다"<<endl;
+                return true;
+            }
         }
-        cout<<"⚠️ 보안키가 틀렸습니다. 뒤로 돌아갑니다."<<endl;
+        cout<<"⚠️ 보안키 또는 비밀번호가 틀렸습니다. 뒤로 돌아갑니다."<<endl;
         return false;
     }
+    // 비밀번호 찾기
+    void FindPassword(){
+        string tempKey;
+
+        cout<<"❗️회원 가입 시 입력하였던 보안키를 입력하시오 : ";
+        cin>>tempKey;
+        if(tempKey.compare(this->key) == 0)
+        {
+            cout<<"✅ 보안키가 인증되었습니다"<<endl;
+            cout<<"🔎 "<<this->id<<"의 비밀번호는 "<<this->password<<"입니다."<<endl;
+            
+        }
+    }
+    
     // 비밀번호 변경
     void ChangePassword(){
         string changePassword1;
@@ -400,7 +422,7 @@ void Start()
     }
 
   // 프로그램 종료 문구
-  printf("프로그램을 종료합니다\n");
+  printf("👋 프로그램을 종료합니다\n");
 }
 
 // 미로그인시 뜨는 화면
@@ -409,7 +431,7 @@ int beforeLogin(){
     cout<<"Chan's Delivery에 오신것을 환영합니다.😆"<<endl;
     cout<<"💡 배달 서비스를 이용하실려면 로그인 또는 회원가입을 진행해주세요."<<endl;
     cout<<"| 1. 회원가입 | 2. 로그인 | 0. 프로그램 종료 |"<<endl;
-    cout<<"명령어 입력 ▶️ ";
+    cout<<"▶️ 명령어 입력 : ";
     cin>>choice;
     return choice;
 }
@@ -494,12 +516,16 @@ void Mypage(){
                                 // 다시 mypage로
                                 continue;
                             }
-                            
-                            
+
                             break;
                         }else if(choice.compare("change") == 0){
                             // 페스워드 변경
                             iter->ChangePassword();
+                            // 다시 mypage로
+                            continue;
+                        }else if(choice.compare("find") == 0){
+                            // 비밀번호 찾기
+                            iter->FindPassword();
                             // 다시 mypage로
                             continue;
                         }else{
@@ -533,8 +559,9 @@ string MypageUI(vector<Member>::iterator iter){
     cout<<" 💰 point : "<<iter->getPoint()<<endl;
     cout<<" ----------------------------"<<endl;
     cout<<"                             "<<endl;;
-    cout<<"   🔒 [change] password 🔒  "<<endl;;
-    cout<<"   ⚠️ [delete] account ⚠️    "<<endl;;
+    cout<<"   🔒  [change] password 🔒  "<<endl;;
+    cout<<"   🔎  [find] password   🔎  "<<endl;;
+    cout<<"   ⚠️  [delete] account  ⚠️    "<<endl;;
     cout<<"                       [home] "<<endl;;
     cout<<" ----------------------------"<<endl;
     cout<<"명령어 입력 ▶️ ";
