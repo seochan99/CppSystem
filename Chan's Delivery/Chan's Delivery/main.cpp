@@ -4,7 +4,7 @@
 #include "account.hpp"
 
 using namespace std;
-#define MEMBERNUM 100;
+#define CHICKENKEY 0
 
 // 로그인 여부 깃발 전역으로 저장
 bool flagLogin=false;
@@ -124,6 +124,30 @@ public:
 
 // 음식 클래스
 class Food{
+private:
+    int key; // key값에 따라 음식 구분 0 이면 치킨, 1 이면 피자
+    string name; // 음식 이름
+    int price; // 음식 가격
+public:
+    // 생성자
+    Food(int key,string name,int price){
+        this->key = key; // 음식 코드 받기
+        this->name = name; // 음식 이름
+        this->price = price; // 음식 가격
+    }
+    // 음식 키 값 가져오기
+    int getFoodKey(){
+        return this->key;
+    }
+    // 음식 이름 가져오기
+    string getFoodName(){
+        return this->name;
+    }
+    // 음식 가격 가져오기
+    int getPrice(){
+        return this->price;
+    }
+    
     
 };
 
@@ -158,6 +182,12 @@ void deleteAccount();
 
 // Mypage UI그리기
 string MypageUI(vector<Member>::iterator iter);
+
+// 치킨집 UI 그리기
+string ChickenUI(vector<Member>::iterator iter);
+// 치킨집
+void Chicken();
+
 
 int main(int argc, const char * argv[]) {
     
@@ -333,6 +363,7 @@ void SignUp(){
     cout<<"🌿 Chan's Delivery 로그인 완료 🌿"<<endl<<endl;
     
     }
+
 // 작동 함수
 void Start()
 {
@@ -391,6 +422,7 @@ void Start()
                     break;
                 }else if(MenuChoice.compare("chicken")==0)
                 {
+                    Chicken();
                     // 치킨 식당 리스트
                 }else if(MenuChoice.compare("pizza")==0)
                 {
@@ -555,9 +587,9 @@ string MypageUI(vector<Member>::iterator iter){
     cout<<" ----------------------------"<<endl;
     cout<<" 🔑 접속된 ID : "<<iter->getId()<<endl;
     cout<<" ----------------------------"<<endl;
-    cout<<" 👑 rank : "<<iter->getRank()<<endl;
+    cout<<" 👑 Rank : "<<iter->getRank()<<endl;
     cout<<" ----------------------------"<<endl;
-    cout<<" 💰 point : "<<iter->getPoint()<<endl;
+    cout<<" 💰 Point : "<<iter->getPoint()<<endl;
     cout<<" ----------------------------"<<endl;
     cout<<"                             "<<endl;;
     cout<<"   🔒  [change] password 🔒  "<<endl;;
@@ -566,6 +598,68 @@ string MypageUI(vector<Member>::iterator iter){
     cout<<"                       [home] "<<endl;;
     cout<<" ----------------------------"<<endl;
     cout<<"명령어 입력 ▶️ ";
+    cin>>choice;
+    return choice;
+}
+
+void Chicken(){
+    string choice;
+ 
+        for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
+                // password가 일치하면!
+                if(iter->getActivate())
+                {
+                    while(true)
+                    {
+                        // 해당 계정 mypage UI그리기
+                        choice = ChickenUI(iter);
+                        // 홈화면으로 가기
+                        if(choice.compare("home") == 0){
+                            // 홈화면으로
+                            Start();
+                            break;
+                        }//계정 삭제
+                        else{
+                            cout<<"--❗️아래의 명령만을 인식합니다❗️--"<<endl;
+                            cout<<"| -  friend, SoySauce..    |"<<endl;
+                            cout<<"| -  home                  |"<<endl;
+                            cout<<" -------------------------"<<endl;
+                            cout<<"해당하는 명령을 입력해주세요"<<endl;
+                            continue;
+                        }
+                    }
+          
+                }
+            }
+}
+
+string ChickenUI(vector<Member>::iterator iter){
+    // chocie
+    // 치킨생성, 치킨 key값으로 치킨 생성
+    foods.push_back(Food(CHICKENKEY,"Fried    ",14000));
+    foods.push_back(Food(CHICKENKEY,"Seasoned ",16000));
+    foods.push_back(Food(CHICKENKEY,"SoySauce ",20000));
+    
+    string choice;
+    // food전부 객체 한바퀴 돌기
+    int i=1;
+
+    cout<<endl;
+    cout<<" ----------------------------"<<endl;
+    cout<<"         🍗 Chicken 🍗        "<<endl;
+    cout<<" ----------------------------"<<endl;
+    for(vector<Food>::iterator foodIter = foods.begin(); foodIter!=foods.end();++foodIter){
+        // CHICKENKEY를 가지고 있으면
+        if(foodIter->getFoodKey() == CHICKENKEY)
+            cout<<i++<<". 🐔 : ["<<foodIter->getFoodName()<<"]   💰 : "<<foodIter->getPrice()<<endl;
+    }
+    cout<<" ----------------------------"<<endl;
+    cout<<"                             "<<endl;;
+    cout<<" 🫢 치킨 값 10퍼센트 포인트 적립 🫢"<<endl;;
+    cout<<"                             "<<endl;;
+    cout<<"                       [home]"<<endl;;
+    cout<<" ----------------------------"<<endl;
+    cout<<"주문 원하시는 Chicken No.을 입력해주세요. ▶️ ";
     cin>>choice;
     return choice;
 }
