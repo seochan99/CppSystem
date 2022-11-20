@@ -17,7 +17,7 @@ private:
     string password; // 회원 비밀번호
     int rank = 1; // 등급, 1부터 시작
     int point = 0; // 포인트, 0부터 시작
-    string key; // 비밀번호 변경 및 탈퇴시 인증키
+    string key; // 비밀번호 변경 및 탈퇴시 보안키
     bool login = false; // 해당 계정 로그인 여부 체크
 public:
     // 회원 생성자 호출 시 id, password 가진상태로 시작
@@ -40,7 +40,7 @@ public:
         {
             cout<<"✅ 비밀번호가 인증되었습니다"<<endl;
             
-            cout<<"❗️회원 가입 시 입력하였던 인증키를 입력하시오 : ";
+            cout<<"❗️회원 가입 시 입력하였던 보안키를 입력하시오 : ";
             cin>>tempKey;
             // 임시키와 인스턴스가 가지고 있는 키와 동일하다면 true반환
             if(tempKey.compare(this->key) == 0)
@@ -49,18 +49,18 @@ public:
                 return true;
             }
         }
-        cout<<"⚠️ 인증키 또는 비밀번호가 틀렸습니다. 뒤로 돌아갑니다."<<endl;
+        cout<<"⚠️ 보안키 또는 비밀번호가 틀렸습니다. 뒤로 돌아갑니다."<<endl;
         return false;
     }
     // 비밀번호 찾기
     void FindPassword(){
         string tempKey;
 
-        cout<<"❗️회원 가입 시 입력하였던 인증키를 입력하시오 : ";
+        cout<<"❗️회원 가입 시 입력하였던 보안키를 입력하시오 : ";
         cin>>tempKey;
         if(tempKey.compare(this->key) == 0)
         {
-            cout<<"✅ 인증키가 인증되었습니다"<<endl;
+            cout<<"✅ 보안키가 인증되었습니다"<<endl;
             cout<<"🔎 "<<this->id<<"의 비밀번호는 "<<this->password<<"입니다."<<endl;
             
         }
@@ -118,6 +118,34 @@ public:
     int getPoint(){
         return this->point;
     }
+    void upPoint(string choice)
+    {
+        if(choice.compare("Fried") == 0){
+            point += 16000*0.01;
+            cout<<"💰"<<16000*0.01<<"포인트가 적립됐습니다.(현재 누적 포인트 : "<<this->point<<")"<<endl;
+        }
+        else if(choice.compare("SoySauce") == 0)
+        {
+            point += 20000*0.01;
+            cout<<"💰"<<20000*0.01<<"포인트가 적립됐습니다.(현재 누적 포인트 : "<<this->point<<")"<<endl;
+        }
+        else if(choice.compare("Seasoned") == 0){
+            point += 18000*0.01;
+            cout<<"💰"<<18000*0.01<<"포인트가 적립됐습니다.(현재 누적 포인트 : "<<this->point<<")"<<endl;
+        }
+        updateRank();
+    }
+    void updateRank(){
+        // 포인트 업과 함께 랭크 업데이트
+        if(point>300 && point<500){
+            rank = 2;
+        }else if(point>500 && point<1000)
+        {
+            rank = 3;
+        }else if(point>1000){
+            rank = 4;
+        }
+    }
 };
 
 
@@ -128,12 +156,16 @@ private:
     int key; // key값에 따라 음식 구분 0 이면 치킨, 1 이면 피자
     string name; // 음식 이름
     int price; // 음식 가격
+    string intro;
+    string from;
 public:
     // 생성자
-    Food(int key,string name,int price){
+    Food(int key,string name,int price,string intro,string from){
         this->key = key; // 음식 코드 받기
         this->name = name; // 음식 이름
         this->price = price; // 음식 가격
+        this->intro = intro; // 메뉴 소개
+        this->from = from; // 메뉴 원산지
     }
     // 음식 키 값 가져오기
     int getFoodKey(){
@@ -143,9 +175,19 @@ public:
     string getFoodName(){
         return this->name;
     }
-    // 음식 가격 가져오기
+    // 음식 키 값 가져오기
     int getPrice(){
         return this->price;
+    }
+    
+    // 음식 한줄 소개, 원산지 안내
+    void getInfo(){
+        cout<<" 📝 메뉴소개"<<endl;
+        cout<<" "<<this->intro<<endl;
+        cout<<" 💰 가격"<<endl;
+        cout<<" "<<this->price<<endl;
+        cout<<" 🐤 원산지"<<endl;
+        cout<<" "<<this->from<<endl;
     }
     
     
@@ -188,9 +230,15 @@ string ChickenUI(vector<Member>::iterator iter);
 // 치킨집
 void Chicken();
 
+// fired 치킨 ui
+string ChickenDetail(vector<Member>::iterator iter,string choice);
 
 int main(int argc, const char * argv[]) {
     
+    // 치킨생성, 치킨 key값으로 치킨 생성
+    foods.push_back(Food(CHICKENKEY,"Fried",14000,"바삭바삭한 치킨","국내산"));
+    foods.push_back(Food(CHICKENKEY,"Seasoned",16000,"양념이 맛있는 치킨","칠레산"));
+    foods.push_back(Food(CHICKENKEY,"SoySauce",20000,"간장치킨이 진리~!","중국산"));
     Start();
     
     return 0;
@@ -260,8 +308,8 @@ void SignUp(){
     string id;
     string password1; // 패스워드
     string password2; // 확인용 패스워드
-    string key1; // 인증키
-    string key2; // 인증키 확인용
+    string key1; // 보안키
+    string key2; // 보안키 확인용
     bool flag = true;
     // 객체 생성자 호출
     
@@ -316,31 +364,31 @@ void SignUp(){
             }
     }
  
-        // 인증키 확인 알고리즘
+        // 보안키 확인 알고리즘
         while(true)
         {
             // password1 입력
-            cout<<"💡비밀번호 변경 혹은 회원삭제를 위한 인증키를 입력해주세요💡"<<endl;
-            cout<<"💡인증키는 6자리이하 영어,특수문자,숫자중 설정가능합니다.💡"<<endl;
-            cout<<"🔐 인증키 입력 : ";
+            cout<<"💡비밀번호 변경 혹은 회원삭제를 위한 보안키를 입력해주세요💡"<<endl;
+            cout<<"💡보안키는 6자리이하 영어,특수문자,숫자중 설정가능합니다.💡"<<endl;
+            cout<<"🔐 보안키 입력 : ";
             cin>>key1;
             
             // password2 입력
-            cout<<"🔐 (확인용)인증키를 다시 입력해주세요 : ";
+            cout<<"🔐 (확인용)보안키를 다시 입력해주세요 : ";
             cin>>key2;
             // 길이부터 체크
                 if(key1.length()>6)
                 {
-                    cout<<"❗️인증키는 6자리이하로 입력하셔야 합니다."<<endl;
+                    cout<<"❗️보안키는 6자리이하로 입력하셔야 합니다."<<endl;
                     continue;
                 }else if(key1.compare(key2)==0)
                 {
-                    cout<<"✅ 인증키가 설정됐습니다."<<endl;
+                    cout<<"✅ 보안키가 설정됐습니다."<<endl;
                     break;
                     
                 }
                 else{
-                    cout<<"❗️두 인증키가 일치하지 않습니다. 다시입력해주시길 바랍니다.❗️"<<endl;
+                    cout<<"❗️두 보안키가 일치하지 않습니다. 다시입력해주시길 바랍니다.❗️"<<endl;
                     continue;
                 }
         }
@@ -604,7 +652,8 @@ string MypageUI(vector<Member>::iterator iter){
 
 void Chicken(){
     string choice;
- 
+    string doubleCheck;
+    
         for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
                 // password가 일치하면!
                 if(iter->getActivate())
@@ -618,10 +667,24 @@ void Chicken(){
                             // 홈화면으로
                             Start();
                             break;
-                        }//계정 삭제
+                        }else if(choice.compare("Fried") == 0 || choice.compare("SoySauce") == 0 || choice.compare("Seasoned") == 0){
+                            // 치킨 구매?
+                            doubleCheck = ChickenDetail(iter,choice);
+                            if(doubleCheck.compare("yes") == 0){
+                                cout<<"💡 주문 완료! 결제는 현장에서 진행됩니다."<<endl;
+                                cout<<"⏰ 도착예정시간 : 40분 후"<<endl;
+                                iter->upPoint(choice); // 포인트 올리기
+                            }else if(doubleCheck.compare("no") == 0)
+                            {
+                                
+                            }else{
+                                cout<<"❗️메뉴로 돌아갑니다.."<<endl;
+                                continue;
+                            }
+                        }
                         else{
                             cout<<"--❗️아래의 명령만을 인식합니다❗️--"<<endl;
-                            cout<<"| -  friend, SoySauce..    |"<<endl;
+                            cout<<"| -  Fried, SoySauce..    |"<<endl;
                             cout<<"| -  home                  |"<<endl;
                             cout<<" -------------------------"<<endl;
                             cout<<"해당하는 명령을 입력해주세요"<<endl;
@@ -632,14 +695,8 @@ void Chicken(){
                 }
             }
 }
-
 string ChickenUI(vector<Member>::iterator iter){
     // chocie
-    // 치킨생성, 치킨 key값으로 치킨 생성
-    foods.push_back(Food(CHICKENKEY,"Fried    ",14000));
-    foods.push_back(Food(CHICKENKEY,"Seasoned ",16000));
-    foods.push_back(Food(CHICKENKEY,"SoySauce ",20000));
-    
     string choice;
     // food전부 객체 한바퀴 돌기
     int i=1;
@@ -651,7 +708,7 @@ string ChickenUI(vector<Member>::iterator iter){
     for(vector<Food>::iterator foodIter = foods.begin(); foodIter!=foods.end();++foodIter){
         // CHICKENKEY를 가지고 있으면
         if(foodIter->getFoodKey() == CHICKENKEY)
-            cout<<i++<<". 🐔 : ["<<foodIter->getFoodName()<<"]   💰 : "<<foodIter->getPrice()<<endl;
+            cout<<i++<<". 🐔 : ["<<foodIter->getFoodName()<<"] 💰 : "<<foodIter->getPrice()<<endl;
     }
     cout<<" ----------------------------"<<endl;
     cout<<"                             "<<endl;;
@@ -659,7 +716,30 @@ string ChickenUI(vector<Member>::iterator iter){
     cout<<"                             "<<endl;;
     cout<<"                       [home]"<<endl;;
     cout<<" ----------------------------"<<endl;
-    cout<<"주문 원하시는 Chicken No.을 입력해주세요. ▶️ ";
+    cout<<"주문 원하시는 Chicken Name을 입력해주세요. ▶️ ";
     cin>>choice;
     return choice;
+}
+string ChickenDetail(vector<Member>::iterator iter,string choice){
+    string doubleCheck;
+    cout<<""<<endl;
+
+    for(vector<Food>::iterator foodIter = foods.begin(); foodIter!=foods.end();++foodIter){
+        // choice와 동일하다면 정보 출력
+
+        if(foodIter->getFoodName().compare(choice)==0)
+        {
+            cout<<" ----------------------------"<<endl;
+            cout<<" 🐔 "<<foodIter->getFoodName()<<" Chicken"<<endl;
+            cout<<" ----------------------------"<<endl;
+            foodIter->getInfo();
+            cout<<" ----------------------------"<<endl;
+            cout<<"구매 하시겠습니까?(yes or no) ▶️ "; cin>>doubleCheck;
+            return doubleCheck;
+        }
+    }
+
+    
+    // 구매한다고 하면 대기시간
+    return doubleCheck;
 }
