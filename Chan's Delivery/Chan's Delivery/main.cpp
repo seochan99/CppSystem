@@ -1,7 +1,6 @@
 #include <iostream>
 #include <algorithm> // find
 #include <vector> // vector
-#include "account.hpp"
 
 using namespace std;
 #define CHICKENKEY 0
@@ -62,7 +61,8 @@ public:
         {
             cout<<"✅ 보안키가 인증되었습니다"<<endl;
             cout<<"🔎 "<<this->id<<"의 비밀번호는 "<<this->password<<"입니다."<<endl;
-            
+        }else{
+            cout<<"⚠️ 보안키가 틀렸습니다. 다시 진행해주시길 바랍니다."<<endl;
         }
     }
     
@@ -282,7 +282,6 @@ void LogIn(){
         {
             cout<<"❗️해당하는 계정이 존재하지않습니다."<<endl;
             cout<<"❗️다시 로그인을 진행해주시길 바랍니다."<<endl;
-            beforeLogin();
         }
     }
 
@@ -311,6 +310,7 @@ void SignUp(){
     string key1; // 보안키
     string key2; // 보안키 확인용
     bool flag = true;
+    bool doubleflag = false;
     // 객체 생성자 호출
     
     //아이디 중복 확인 알고리즘
@@ -332,13 +332,19 @@ void SignUp(){
                 // 동알한 아이디가 있다면
                 if (iter->getId().compare(id) == 0)
                 {
-                    cout<<"❗️이미 중복된 id가 존재합니다. 다시 입력해주세요."<<endl;
+                    cout<<"❗️ 해당 id가 이미 존재합니다. 다시 입력해주세요."<<endl;
+                    doubleflag = true;
                     break;
-                }else{
-                    // 만약 중복되는 id가 없다면 flag = false로
-                    flag = false;
                 }
+                }
+            
+            
+            // 만약 중복되는 id가 없다면 flag = false로
+            if(doubleflag == false){
+                    flag = false;
             }
+            // 깃발 초기화
+            doubleflag = false;
         }
         
         
@@ -475,6 +481,7 @@ void Start()
                 }else if(MenuChoice.compare("pizza")==0)
                 {
                     // 피자 식당 리스트
+                    cout<<"🥲 아직 입점되어 있는 피자집이 없습니다."<<endl;
                 }else if(MenuChoice.compare("logout")==0)
                 {
                     // 로그아웃진행
@@ -529,10 +536,10 @@ string AfterLoginMainMenu(){
     cout<<" ----------------------------"<<endl;
     cout<<"|       🧑‍🍳식당 카테고리🧑‍🍳       |"<<endl;
     cout<<" ----------------------------"<<endl;
-    cout<<"|  🍗 chicken  |  🍕 pizza  |"<<endl;;
+    cout<<"| 🍗 [chicken] | 🍕 [pizza]  |"<<endl;;
     cout<<" ----------------------------"<<endl;
     cout<<"|                            |"<<endl;;
-    cout<<"|          Ver 1.5           |"<<endl;;
+    cout<<"|          Ver 1.7           |"<<endl;;
     cout<<"|                     [exit] |"<<endl;;
     cout<<" ----------------------------"<<endl;
     cout<<"명령어 입력 ▶️ ";
@@ -542,7 +549,7 @@ string AfterLoginMainMenu(){
 
 void deleteAccount(string id){
     // 계정삭제
-    
+
     // 인덱스 변수
     int idx=0;
     // iter로 빙글 돌기
@@ -555,7 +562,7 @@ void deleteAccount(string id){
             idx++;
         }
     }
-    
+
     // idx번째 원소 삭제
     members.erase(members.begin());
     
@@ -565,7 +572,7 @@ void deleteAccount(string id){
 
 void Mypage(){
     string choice;
- 
+    bool accFlag=false; // 계정삭제여부 깃발
         for(vector<Member>::iterator iter = members.begin(); iter!=members.end();++iter){
                 // password가 일치하면!
                 if(iter->getActivate())
@@ -577,18 +584,19 @@ void Mypage(){
                         // 홈화면으로 가기
                         if(choice.compare("home") == 0){
                             // 홈화면으로
-                            Start();
                             break;
                         }//계정 삭제
                         else if(choice.compare("delete") == 0){
                             // 계정삭제 진행
                             // 키체크 성공 시
                             if(iter->keyCheck())
-                            {
+                            {                             
+                                // 활성화 해제
+                                iter->Deactivate();
                                 cout<<"✅ 계정 "<<iter->getId()<<"이 삭제 완료되었습니다."<<endl;
                                 deleteAccount(iter->getId());
+                                accFlag = true;
                                 // 로그인 전 홈화면으로
-                                Start();
                                 break;
                             }
                             // 키체크 실패 시
@@ -619,7 +627,13 @@ void Mypage(){
                             continue;
                         }
                     }
-          
+
+                }else{
+                    if (accFlag==true){
+                        accFlag = false;
+                        break;
+                        
+                    }
                 }
             }
    
