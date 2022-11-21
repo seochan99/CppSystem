@@ -91,8 +91,6 @@ public:
             }
         }
     }
-    // ID,비밀번호 설정
-    
     // id 반환
     string getId(){
         return this->id;
@@ -193,16 +191,9 @@ public:
     
 };
 
-// 식당 클래스
-class Restaurant{
-    
-};
-
 // 클래스별 벡터 생성
 vector<Member> members;
 vector<Food> foods;
-vector<Restaurant> restaurants;
-
 
 // 로그인 이전 메인 메뉴 뜨게하기
 int beforeLogin();
@@ -239,6 +230,7 @@ int main(int argc, const char * argv[]) {
     foods.push_back(Food(CHICKENKEY,"Fried",14000,"바삭바삭한 치킨","국내산"));
     foods.push_back(Food(CHICKENKEY,"Seasoned",16000,"양념이 맛있는 치킨","칠레산"));
     foods.push_back(Food(CHICKENKEY,"SoySauce",20000,"간장치킨이 진리~!","중국산"));
+    // start함수
     Start();
     
     return 0;
@@ -309,8 +301,8 @@ void SignUp(){
     string password2; // 확인용 패스워드
     string key1; // 보안키
     string key2; // 보안키 확인용
-    bool flag = true;
-    bool doubleflag = false;
+    bool flag = true; // 로그인 여부를 확인하기 위한 깃발
+    bool doubleflag = false; // 중복 id체크 여부를 위한 깃발
     // 객체 생성자 호출
     
     //아이디 중복 확인 알고리즘
@@ -337,8 +329,7 @@ void SignUp(){
                     break;
                 }
                 }
-            
-            
+
             // 만약 중복되는 id가 없다면 flag = false로
             if(doubleflag == false){
                     flag = false;
@@ -346,8 +337,7 @@ void SignUp(){
             // 깃발 초기화
             doubleflag = false;
         }
-        
-        
+
     }
     // 패스워드 확인 알고리즘
     while(true)
@@ -562,10 +552,8 @@ void deleteAccount(string id){
             idx++;
         }
     }
-
     // idx번째 원소 삭제
     members.erase(members.begin());
-    
     // 로그인 해제
     flagLogin = false;
 }
@@ -604,7 +592,6 @@ void Mypage(){
                                 // 다시 mypage로
                                 continue;
                             }
-
                             break;
                         }else if(choice.compare("change") == 0){
                             // 페스워드 변경
@@ -618,7 +605,7 @@ void Mypage(){
                             continue;
                         }else{
                             cout<<"--❗️아래의 명령만을 인식합니다❗️--"<<endl;
-                            cout<<"| -  mypage               |"<<endl;
+                            cout<<"| -  find                 |"<<endl;
                             cout<<"| -  change               |"<<endl;
                             cout<<"| -  delete               |"<<endl;
                             cout<<"| -  home                 |"<<endl;
@@ -627,16 +614,13 @@ void Mypage(){
                             continue;
                         }
                     }
-
                 }else{
                     if (accFlag==true){
                         accFlag = false;
                         break;
-                        
                     }
                 }
             }
-   
 }
 
 
@@ -674,7 +658,7 @@ void Chicken(){
                 {
                     while(true)
                     {
-                        // 해당 계정 mypage UI그리기
+                        // 해당 계정 Chicken UI그리기
                         choice = ChickenUI(iter);
                         // 홈화면으로 가기
                         if(choice.compare("home") == 0){
@@ -726,7 +710,7 @@ string ChickenUI(vector<Member>::iterator iter){
     }
     cout<<" ----------------------------"<<endl;
     cout<<"                             "<<endl;;
-    cout<<" 🫢 치킨 값 10퍼센트 포인트 적립 🫢"<<endl;;
+    cout<<" 🫢 치킨 값 1퍼센트 포인트 적립 🫢 "<<endl;;
     cout<<"                             "<<endl;;
     cout<<"                       [home]"<<endl;;
     cout<<" ----------------------------"<<endl;
@@ -734,6 +718,7 @@ string ChickenUI(vector<Member>::iterator iter){
     cin>>choice;
     return choice;
 }
+
 string ChickenDetail(vector<Member>::iterator iter,string choice){
     string doubleCheck;
     cout<<""<<endl;
@@ -752,8 +737,6 @@ string ChickenDetail(vector<Member>::iterator iter,string choice){
             return doubleCheck;
         }
     }
-
-    
-    // 구매한다고 하면 대기시간
+    // 구매여부 반환
     return doubleCheck;
 }
