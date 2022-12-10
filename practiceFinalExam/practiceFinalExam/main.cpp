@@ -2,35 +2,38 @@
 
 using namespace std;
 
-class A {
-    protected : int x;
+class AbstractGate{
+protected:
+    bool x,y;
 public:
-A() { x=0; }
-A(int x) { this->x = x;
-    cout<< "해당 객체의 x값 : "<<x<<endl;
-}
-    
-};
-class B : public A { int y;
-public:
-B(int x, int y) : A(x+5) { this->y=y; } };
-class C : public B { int m;
-public:
-C(int x, int y, int z) : B(x, y) { m=x*y*z;
-    cout<< "해당 객체의 x,y,z,m값 : "<<x<<y<<z<<m<<endl;
-}
-    void getXValue(){
-        cout<<this->x<<endl;
+    // set() 함수, 매개변수 x,y
+    void set(bool x, bool y){
+        this->x = x;
+        this->y = y;
     }
-}
+    // opreation() 함수 작성
+    virtual bool opreation()=0;
+};
 
-;
-
-
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    C c(3,5,2);
-    c.getXValue();
+// ANDGate class작성
+class ANDGate : public AbstractGate{
+public:
+    virtual bool opreation()
+    {
+        // 둘다 true일때
+        if(this->x && this->y){
+            return true;
+        }
+        return false;
+    }
+};
+int main(){
+    ANDGate andGate;
+    
+    andGate.set(true,false);
+    
+    cout.setf(ios::boolalpha); // bool값을 true,false문자열로 출력함
+    cout<<"실행결과: "<<andGate.opreation()<<endl;
     
     return 0;
 }
