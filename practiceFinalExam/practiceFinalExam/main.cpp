@@ -1,39 +1,23 @@
 #include <iostream>
-
 using namespace std;
 
-class AbstractGate{
-protected:
-    bool x,y;
-public:
-    // set() 함수, 매개변수 x,y
-    void set(bool x, bool y){
-        this->x = x;
-        this->y = y;
-    }
-    // opreation() 함수 작성
-    virtual bool opreation()=0;
-};
-
-// ANDGate class작성
-class ANDGate : public AbstractGate{
-public:
-    virtual bool opreation()
-    {
-        // 둘다 true일때
-        if(this->x && this->y){
-            return true;
-        }
-        return false;
-    }
-};
 int main(){
-    ANDGate andGate;
+    char strBuf[100];
+    // (1) get()
+    cin.get(strBuf,100);
     
-    andGate.set(true,false);
+    cout<<strBuf<<endl;
+    // (2)
+    cout<<"get() func : "<<strlen(strBuf)<<"뮨자 읽음 "<<endl<<endl;
     
-    cout.setf(ios::boolalpha); // bool값을 true,false문자열로 출력함
-    cout<<"실행결과: "<<andGate.opreation()<<endl;
+    cin.ignore(); // 입력 버퍼 비우기
+
     
-    return 0;
+    // (4) getline() 사용
+    cin.getline(strBuf, 100);
+    
+    cout<<strBuf<<endl;
+    cout<<"getline() func : "<<strlen(strBuf)<<"뮨자 읽음 "<<endl<<endl;
+    // Enter키까지 읽으므로 get()보다 하나 ccount가 많음
+    
 }
