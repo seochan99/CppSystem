@@ -30,7 +30,7 @@ public:
     template <class T>
     Histogram& operator << (T s)
     {
-        str+s;
+        this->str = str+s;
         return *this;
     }
     
