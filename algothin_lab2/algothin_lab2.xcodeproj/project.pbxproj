@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		980ADD40293C7EB300B35B91 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980ADD3F293C7EB300B35B91 /* main.cpp */; };
-		98DE3F9529CC4352003C56CA /* pr.c in Sources */ = {isa = PBXBuildFile; fileRef = 98DE3F9429CC4352003C56CA /* pr.c */; };
+		980A7F802AB98A76003E8DDC /* 1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980A7F7F2AB98A76003E8DDC /* 1.cpp */; };
+		980A7F872AB98BF9003E8DDC /* 2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980A7F862AB98BF9003E8DDC /* 2.cpp */; };
+		980A7F8A2AB98F0B003E8DDC /* 3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 980A7F882AB98F0B003E8DDC /* 3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		980ADD3A293C7EB300B35B91 /* CopyFiles */ = {
+		980A7F7A2AB98A76003E8DDC /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -24,16 +25,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		980ADD3C293C7EB300B35B91 /* CRC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CRC; sourceTree = BUILT_PRODUCTS_DIR; };
-		980ADD3F293C7EB300B35B91 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		980ADD46293C7EC900B35B91 /* input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
-		980ADD47293C7ECF00B35B91 /* Output.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Output.txt; sourceTree = "<group>"; };
-		98DE3F9329CC4352003C56CA /* pr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pr.h; sourceTree = "<group>"; };
-		98DE3F9429CC4352003C56CA /* pr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pr.c; sourceTree = "<group>"; };
+		980A7F7C2AB98A76003E8DDC /* algothin_lab2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = algothin_lab2; sourceTree = BUILT_PRODUCTS_DIR; };
+		980A7F7F2AB98A76003E8DDC /* 1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1.cpp; sourceTree = "<group>"; };
+		980A7F862AB98BF9003E8DDC /* 2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 2.cpp; sourceTree = "<group>"; };
+		980A7F882AB98F0B003E8DDC /* 3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 3.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		980ADD39293C7EB300B35B91 /* Frameworks */ = {
+		980A7F792AB98A76003E8DDC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -43,69 +42,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		980ADD33293C7EB300B35B91 = {
+		980A7F732AB98A76003E8DDC = {
 			isa = PBXGroup;
 			children = (
-				980ADD3E293C7EB300B35B91 /* CRC */,
-				980ADD3D293C7EB300B35B91 /* Products */,
+				980A7F7E2AB98A76003E8DDC /* algothin_lab2 */,
+				980A7F7D2AB98A76003E8DDC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		980ADD3D293C7EB300B35B91 /* Products */ = {
+		980A7F7D2AB98A76003E8DDC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				980ADD3C293C7EB300B35B91 /* CRC */,
+				980A7F7C2AB98A76003E8DDC /* algothin_lab2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		980ADD3E293C7EB300B35B91 /* CRC */ = {
+		980A7F7E2AB98A76003E8DDC /* algothin_lab2 */ = {
 			isa = PBXGroup;
 			children = (
-				980ADD46293C7EC900B35B91 /* input.txt */,
-				980ADD3F293C7EB300B35B91 /* main.cpp */,
-				980ADD47293C7ECF00B35B91 /* Output.txt */,
-				98DE3F9329CC4352003C56CA /* pr.h */,
-				98DE3F9429CC4352003C56CA /* pr.c */,
+				980A7F7F2AB98A76003E8DDC /* 1.cpp */,
+				980A7F862AB98BF9003E8DDC /* 2.cpp */,
+				980A7F882AB98F0B003E8DDC /* 3.cpp */,
 			);
-			path = CRC;
+			path = algothin_lab2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		980ADD3B293C7EB300B35B91 /* CRC */ = {
+		980A7F7B2AB98A76003E8DDC /* algothin_lab2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 980ADD43293C7EB300B35B91 /* Build configuration list for PBXNativeTarget "CRC" */;
+			buildConfigurationList = 980A7F832AB98A76003E8DDC /* Build configuration list for PBXNativeTarget "algothin_lab2" */;
 			buildPhases = (
-				980ADD38293C7EB300B35B91 /* Sources */,
-				980ADD39293C7EB300B35B91 /* Frameworks */,
-				980ADD3A293C7EB300B35B91 /* CopyFiles */,
+				980A7F782AB98A76003E8DDC /* Sources */,
+				980A7F792AB98A76003E8DDC /* Frameworks */,
+				980A7F7A2AB98A76003E8DDC /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = CRC;
-			productName = CRC;
-			productReference = 980ADD3C293C7EB300B35B91 /* CRC */;
+			name = algothin_lab2;
+			productName = algothin_lab2;
+			productReference = 980A7F7C2AB98A76003E8DDC /* algothin_lab2 */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		980ADD34293C7EB300B35B91 /* Project object */ = {
+		980A7F742AB98A76003E8DDC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					980ADD3B293C7EB300B35B91 = {
-						CreatedOnToolsVersion = 14.1;
+					980A7F7B2AB98A76003E8DDC = {
+						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
-			buildConfigurationList = 980ADD37293C7EB300B35B91 /* Build configuration list for PBXProject "CRC" */;
+			buildConfigurationList = 980A7F772AB98A76003E8DDC /* Build configuration list for PBXProject "algothin_lab2" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -113,30 +110,31 @@
 				en,
 				Base,
 			);
-			mainGroup = 980ADD33293C7EB300B35B91;
-			productRefGroup = 980ADD3D293C7EB300B35B91 /* Products */;
+			mainGroup = 980A7F732AB98A76003E8DDC;
+			productRefGroup = 980A7F7D2AB98A76003E8DDC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				980ADD3B293C7EB300B35B91 /* CRC */,
+				980A7F7B2AB98A76003E8DDC /* algothin_lab2 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		980ADD38293C7EB300B35B91 /* Sources */ = {
+		980A7F782AB98A76003E8DDC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				980ADD40293C7EB300B35B91 /* main.cpp in Sources */,
-				98DE3F9529CC4352003C56CA /* pr.c in Sources */,
+				980A7F8A2AB98F0B003E8DDC /* 3.cpp in Sources */,
+				980A7F872AB98BF9003E8DDC /* 2.cpp in Sources */,
+				980A7F802AB98A76003E8DDC /* 1.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		980ADD41293C7EB300B35B91 /* Debug */ = {
+		980A7F812AB98A76003E8DDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -186,7 +184,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -194,7 +192,7 @@
 			};
 			name = Debug;
 		};
-		980ADD42293C7EB300B35B91 /* Release */ = {
+		980A7F822AB98A76003E8DDC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -238,14 +236,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 			};
 			name = Release;
 		};
-		980ADD44293C7EB300B35B91 /* Debug */ = {
+		980A7F842AB98A76003E8DDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -255,7 +253,7 @@
 			};
 			name = Debug;
 		};
-		980ADD45293C7EB300B35B91 /* Release */ = {
+		980A7F852AB98A76003E8DDC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -268,25 +266,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		980ADD37293C7EB300B35B91 /* Build configuration list for PBXProject "CRC" */ = {
+		980A7F772AB98A76003E8DDC /* Build configuration list for PBXProject "algothin_lab2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				980ADD41293C7EB300B35B91 /* Debug */,
-				980ADD42293C7EB300B35B91 /* Release */,
+				980A7F812AB98A76003E8DDC /* Debug */,
+				980A7F822AB98A76003E8DDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		980ADD43293C7EB300B35B91 /* Build configuration list for PBXNativeTarget "CRC" */ = {
+		980A7F832AB98A76003E8DDC /* Build configuration list for PBXNativeTarget "algothin_lab2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				980ADD44293C7EB300B35B91 /* Debug */,
-				980ADD45293C7EB300B35B91 /* Release */,
+				980A7F842AB98A76003E8DDC /* Debug */,
+				980A7F852AB98A76003E8DDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 980ADD34293C7EB300B35B91 /* Project object */;
+	rootObject = 980A7F742AB98A76003E8DDC /* Project object */;
 }
