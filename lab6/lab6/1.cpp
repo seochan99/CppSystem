@@ -21,7 +21,7 @@
 //        // 노드 생성자: 키, 정보, 왼쪽 자식, 오른쪽 자식 초기화
 //        node(itemType k, infoType i, struct node* ll, struct node* rr)
 //        { key = k; info = i; l = ll; r = rr; };
-//    };
+////    };
 //
 //    struct node* head, * z;  // 더미 헤드 노드와 널 노드를 가리키는 포인터
 //
