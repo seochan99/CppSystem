@@ -7,7 +7,8 @@
 //int* SP;  // SP에 대한 메모리는 p의 크기만큼 동적 할당 해야한다.
 //void initSP(string p);
 //
-//void brutesearch(string p, string a, int cnt = 0) {  //p : Pattern String, a : Text String
+//// 브루트포스 검색 알고리즘 - 패턴 매칭
+//void brutesearch(string p, string a, int cnt = 0) {
 //    int i, j, n = p.size(), m = a.size();
 //    if (n > m) return;
 //    for (i = 0; i <= m - n; i++) {
@@ -15,34 +16,46 @@
 //            cnt++;
 //            if (a[i + j] != p[j]) break;
 //        }
-//        if (j == n) { //결과값 출력
+//        if (j == n) { // 결과값 출력
 //            cout << i << ", ";
 //        }
 //    }
-//    cout << cnt << '\n';
+//    cout << "총 비교 횟수: " << cnt << '\n';
 //}
 //
+//// Knuth-Morris-Pratt 검색 알고리즘 - 패턴 매칭
 //void kmpsearch(string p, string a, int cnt = 0) {
 //    int i, j, m = p.size(), n = a.size();
 //    initSP(p);
 //    for (i = 0, j = -1; i <= n - 1; i++) {
-//        while ((j >= 0) && (p[j + 1] != a[i])) { j = SP[j]; cnt++; }
-//        if (p[j + 1] == a[i]) { j++; cnt++; }
+//        while ((j >= 0) && (p[j + 1] != a[i])) {
+//            j = SP[j];
+//            cnt++;
+//        }
+//        if (p[j + 1] == a[i]) {
+//            j++;
+//            cnt++;
+//        }
 //        if (j == m - 1) {
 //            // 결과값 출력
 //            cout << (i - m + 1) << ", ";
 //            j = SP[j];
 //        }
 //    }
-//    cout << cnt << '\n';
+//    cout << "총 비교 횟수: " << cnt << '\n';
 //}
 //
+//// KMP 알고리즘을 위한 "부분 일치" 테이블 초기화
 //void initSP(string p) {
 //    int i, j, m = p.size();
 //    SP[0] = -1;
 //    for (i = 1, j = -1; i <= m - 1; i++) {
-//        while ((j >= 0) && (p[j + 1] != p[i])) j = SP[j];
-//        if (p[j + 1] == p[i]) j++;
+//        while ((j >= 0) && (p[j + 1] != p[i])) {
+//            j = SP[j];
+//        }
+//        if (p[j + 1] == p[i]) {
+//            j++;
+//        }
 //        SP[i] = j;
 //    }
 //}
@@ -50,10 +63,12 @@
 //const int q = 33554393;
 //const int d = 26;
 //
+//// 문자의 인덱스 계산
 //int index(char c) {
 //    return (int)c - 65;
 //}
 //
+//// 라빈-카프 검색 알고리즘 - 패턴 매칭
 //void rksearch(string p, string a, int cnt = 0) {
 //    int i, j, dM = 1, flag = 0;
 //    int h1 = 0, h2 = 0;
@@ -70,9 +85,11 @@
 //            flag = 1;
 //            for (j = i; j < m + i; j++) {
 //                cnt++;
-//                if (a[j] != p[j - i]) { flag = 0; break; }
+//                if (a[j] != p[j - i]) {
+//                    flag = 0;
+//                    break;
+//                }
 //            }
-//
 //        }
 //        if (flag)
 //            cout << i << ", ";
@@ -81,7 +98,7 @@
 //            h2 = (h2 * d + index(a[i + m])) % q;
 //        }
 //    }
-//    cout << cnt << '\n';
+//    cout << "총 비교 횟수: " << cnt << '\n';
 //}
 //
 //int main()
@@ -95,5 +112,8 @@
 //    kmpsearch(pattern, text, 0);
 //    rksearch(pattern, text, 0);
 //
+//    delete[] SP; // 동적 할당된 메모리 해제
+//
 //    return 0;
 //}
+//
